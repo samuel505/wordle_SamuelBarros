@@ -6,6 +6,9 @@
 package org.daw1.SamuelBarros.wordle.gui;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 /**
  *
@@ -13,15 +16,92 @@ import java.awt.Color;
  */
 public class MainGUI extends javax.swing.JFrame {
 
-    private static final Color COLOR_ROJO = new Color(255,0,0);
-    private static final Color COLOR_AMARILLO = new Color(255,255,0);
-    private static final Color COLOR_VERDE = new Color(0,255,0);
+    private static final Color COLOR_ROJO = new Color(255, 0, 0);
+    private static final Color COLOR_AMARILLO = new Color(255, 255, 0);
+    private static final Color COLOR_VERDE = new Color(0, 255, 0);
+
+    private static final int MAX_INTENTOS = 6;
+    private static final int TAMANHO_PALABRA = 5;
+
+    private final JLabel labels[][] = new JLabel[MAX_INTENTOS][TAMANHO_PALABRA];
+
+    public void testFilas() {
+
+        for (int i = 0; i < labels.length; i++) {
+            JLabel[] label = labels[i];
+            for (int j = 0; j < label.length; j++) {
+                JLabel jLabel = label[j];
+                jLabel.setVisible(false);
+                //jLabel.setForeground(COLOR_ROJO);
+
+            }
+        }
+    }
+
+    public void ocultarFilas() {
+
+        for (int i = 0; i < labels.length; i++) {
+            JLabel[] label = labels[i];
+            for (int j = 0; j < label.length; j++) {
+                JLabel jLabel = label[j];
+                jLabel.setVisible(false);
+            }
+        }
+    }
+
     
+    public void testCambiarLetra(int fila,int letra) {
+
+        JLabel[] label = labels[fila];
+        for (int j = 0; j < label.length; j++) {
+            JLabel jLabel = label[letra];
+            jLabel.setVisible(true);
+            //jLabel.setForeground(COLOR_ROJO);
+
+        }
+    }
+    
+    
+    
+    public void testCambiarFila(int i) {
+
+        JLabel[] label = labels[i];
+        for (int j = 0; j < label.length; j++) {
+            JLabel jLabel = label[j];
+            jLabel.setVisible(false);
+            //jLabel.setForeground(COLOR_ROJO);
+
+        }
+
+    }
+
+    public final void IniciarLabels() {
+        for (int i = 1; i <= MAX_INTENTOS; i++) {
+            for (int j = 1; j <= TAMANHO_PALABRA; j++) {
+                try {
+                    String palabraLabel = "jLabel" + i + "_" + j;
+                    JLabel aux = (JLabel) this.getClass().getDeclaredField(palabraLabel).get(this);
+                    labels[i - 1][j - 1] = aux;
+
+                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+    }
+
     /**
      * Creates new form gui
      */
     public MainGUI() {
         initComponents();
+        IniciarLabels();
+        ocultarFilas();
+        //testFilas();
+        //testCambiarFila(0);
+        testCambiarLetra(0,0);
+        
     }
 
     /**
