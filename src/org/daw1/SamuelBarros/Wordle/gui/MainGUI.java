@@ -54,9 +54,9 @@ public class MainGUI extends javax.swing.JFrame {
 
         JLabel[] label = labels[fila];
         for (int j = 0; j < label.length; j++) {
-            JLabel jLabel = label[letra];
-            jLabel.setVisible(true);
-            //jLabel.setForeground(COLOR_ROJO);
+            JLabel l = label[letra];
+            l.setVisible(true);
+            //l.setForeground(COLOR_ROJO);
 
         }
     }
@@ -103,7 +103,7 @@ public class MainGUI extends javax.swing.JFrame {
         testCambiarLetra(0,0);
         
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,13 +161,19 @@ public class MainGUI extends javax.swing.JFrame {
         finaljLabel = new javax.swing.JLabel();
         errorjPanel = new javax.swing.JPanel();
         errorjLabel = new javax.swing.JLabel();
+        menujMenuBar = new javax.swing.JMenuBar();
+        ArchivojMenu = new javax.swing.JMenu();
+        MotoresjMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DAW1 Wordle SamuelBarros");
         setAlwaysOnTop(true);
 
+        mainjPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainjPanel.setLayout(new java.awt.BorderLayout());
 
+        letrasjPanel.setBackground(new java.awt.Color(255, 255, 255));
+        letrasjPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, null, java.awt.Color.gray));
         letrasjPanel.setMinimumSize(new java.awt.Dimension(160, 365));
         letrasjPanel.setPreferredSize(new java.awt.Dimension(400, 228));
         letrasjPanel.setLayout(new java.awt.GridLayout(6, 5));
@@ -354,11 +360,14 @@ public class MainGUI extends javax.swing.JFrame {
 
         mainjPanel.add(letrasjPanel, java.awt.BorderLayout.CENTER);
 
+        bottomjPanel.setBackground(new java.awt.Color(255, 255, 255));
         bottomjPanel.setPreferredSize(new java.awt.Dimension(200, 125));
         bottomjPanel.setLayout(new java.awt.GridLayout(2, 2));
 
+        estadojPanel.setBackground(new java.awt.Color(255, 255, 255));
         estadojPanel.setLayout(new java.awt.GridLayout(3, 0));
 
+        maljPanel.setBackground(new java.awt.Color(255, 255, 255));
         maljPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         maljLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -367,6 +376,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         estadojPanel.add(maljPanel);
 
+        existenjPanel.setBackground(new java.awt.Color(255, 255, 255));
         existenjPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         existenjLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -375,6 +385,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         estadojPanel.add(existenjPanel);
 
+        bienjPanel.setBackground(new java.awt.Color(255, 255, 255));
         bienjPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         bienjLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -384,6 +395,8 @@ public class MainGUI extends javax.swing.JFrame {
         estadojPanel.add(bienjPanel);
 
         bottomjPanel.add(estadojPanel);
+
+        inputjPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         palabrasjTextField.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         palabrasjTextField.setToolTipText("");
@@ -397,6 +410,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         bottomjPanel.add(inputjPanel);
 
+        exitojPanel.setBackground(new java.awt.Color(255, 255, 255));
         exitojPanel.setLayout(new java.awt.GridBagLayout());
 
         finaljLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -410,6 +424,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         bottomjPanel.add(exitojPanel);
 
+        errorjPanel.setBackground(new java.awt.Color(255, 255, 255));
         errorjPanel.setLayout(new java.awt.GridBagLayout());
 
         errorjLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -425,6 +440,17 @@ public class MainGUI extends javax.swing.JFrame {
 
         mainjPanel.add(bottomjPanel, java.awt.BorderLayout.PAGE_END);
 
+        menujMenuBar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        menujMenuBar.setOpaque(false);
+
+        ArchivojMenu.setText("File");
+        menujMenuBar.add(ArchivojMenu);
+
+        MotoresjMenu.setText("Edit");
+        menujMenuBar.add(MotoresjMenu);
+
+        setJMenuBar(menujMenuBar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -433,7 +459,7 @@ public class MainGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
         );
 
         pack();
@@ -478,6 +504,8 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu ArchivojMenu;
+    private javax.swing.JMenu MotoresjMenu;
     private javax.swing.JLabel bienjLabel;
     private javax.swing.JPanel bienjPanel;
     private javax.swing.JPanel bottomjPanel;
@@ -524,6 +552,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel mainjPanel;
     private javax.swing.JLabel maljLabel;
     private javax.swing.JPanel maljPanel;
+    private javax.swing.JMenuBar menujMenuBar;
     private javax.swing.JTextField palabrasjTextField;
     // End of variables declaration//GEN-END:variables
 }
