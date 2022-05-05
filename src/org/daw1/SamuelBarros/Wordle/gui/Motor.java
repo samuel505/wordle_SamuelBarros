@@ -65,6 +65,7 @@ public class Motor extends javax.swing.JDialog {
         anadirjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
         insertarjPanel.add(anadirjTextField);
 
+        anadirjButton.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         anadirjButton.setText("Añadir");
         insertarjPanel.add(anadirjButton);
 
@@ -86,6 +87,7 @@ public class Motor extends javax.swing.JDialog {
         borrarjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
         borradojPanel.add(borrarjTextField);
 
+        borrarjButton.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         borrarjButton.setText("Borrar");
         borradojPanel.add(borrarjButton);
 

@@ -105,6 +105,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="anadirjButton">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Dialog" size="12" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
                       </Properties>
                     </Component>
@@ -158,6 +161,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="borrarjButton">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Dialog" size="12" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Borrar"/>
                       </Properties>
                     </Component>
