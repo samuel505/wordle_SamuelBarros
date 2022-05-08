@@ -164,6 +164,8 @@ public class MainGUI extends javax.swing.JFrame {
         menujMenuBar = new javax.swing.JMenuBar();
         ArchivojMenu = new javax.swing.JMenu();
         MotoresjMenu = new javax.swing.JMenu();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DAW1 Wordle SamuelBarros");
@@ -443,10 +445,19 @@ public class MainGUI extends javax.swing.JFrame {
         menujMenuBar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         menujMenuBar.setOpaque(false);
 
-        ArchivojMenu.setText("File");
+        ArchivojMenu.setText("Archivo");
         menujMenuBar.add(ArchivojMenu);
 
-        MotoresjMenu.setText("Edit");
+        MotoresjMenu.setText("Motor");
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem");
+        MotoresjMenu.add(jRadioButtonMenuItem1);
+
+        jRadioButtonMenuItem2.setSelected(true);
+        jRadioButtonMenuItem2.setText("jRadioButtonMenuItem2");
+        MotoresjMenu.add(jRadioButtonMenuItem2);
+
         menujMenuBar.add(MotoresjMenu);
 
         setJMenuBar(menujMenuBar);
@@ -548,6 +559,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6_3;
     private javax.swing.JLabel jLabel6_4;
     private javax.swing.JLabel jLabel6_5;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JPanel letrasjPanel;
     private javax.swing.JPanel mainjPanel;
     private javax.swing.JLabel maljLabel;
