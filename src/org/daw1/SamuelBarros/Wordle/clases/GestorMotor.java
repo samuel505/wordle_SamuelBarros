@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class GestorMotor implements iMotor {
 
-    private static final File f = new File(Paths.get(".") + File.separator + "dat" + File.separator + "palabras.txt");
+    private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabras.txt");
     Set<String> palabras = new TreeSet<String>();
 
     public boolean existe() {
@@ -29,65 +29,76 @@ public class GestorMotor implements iMotor {
 
     }
 
-    private void leer() {
+    private void cargarTextos() {
 
-    }
-
-    @Override
-    public boolean anadir(String palabra) {
-
-        if (!f.exists()) {
-            f.getParentFile().mkdirs();
-            try {
-                f.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
-            bw.write(palabra);
-            return true;
-        } catch (IOException ex) {
-            Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean borrar(String palabra) {
-        
-        return false;
         
     }
 
     
+    
+    @Override
+    public boolean anadir(String palabra) {
+        if (!palabra.matches("[A-Za-z]{5}")) {
+            return false; 
+        } else {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                try {
+                    f.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f,true));) {
+                bw.write(palabra);
+                bw.newLine();
+                return true;
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        
+    }
+
+    @Override
+    public boolean borrar(String palabra) {
+
+        return false;
+
+    }
+
     public void test() {
         palabras.add("samuel");
         palabras.add("lucas");
         palabras.add("pedro");
         palabras.add("juan");
+        palabras.add("pablo");
+        palabras.add("maria");
+        palabras.add("saray");
     }
-    
-    
-    
+
     @Override
     public String palabraAleatoria() {
-        
+
         Random rm = new Random();
-        int random =rm.nextInt(palabras.size()-1);
+        int random = rm.nextInt(palabras.size() - 1);
         String texto = "";
-      
-       Object array[] =palabras.toArray();
-       
-       return (String) array[random];
+
+        Object array[] = palabras.toArray();
+
+        return (String) array[random];
     }
 
     @Override
     public boolean existePalabra(String palabra) {
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+        return false;
+
+       
     }
 
 }

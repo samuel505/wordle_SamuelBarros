@@ -4,12 +4,15 @@
  */
 package org.daw1.SamuelBarros.Wordle.gui;
 
+import java.awt.Color;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotor;
+
 /**
  *
  * @author samuel505
  */
 public class Motor extends javax.swing.JDialog {
-
+GestorMotor g = new GestorMotor();
     /**
      * Creates new form Motor
      */
@@ -63,10 +66,20 @@ public class Motor extends javax.swing.JDialog {
         anadirjPanel.setLayout(new java.awt.GridLayout(2, 1));
 
         anadirjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
+        anadirjTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anadirjTextFieldActionPerformed(evt);
+            }
+        });
         insertarjPanel.add(anadirjTextField);
 
         anadirjButton.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         anadirjButton.setText("Añadir");
+        anadirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anadirjButtonActionPerformed(evt);
+            }
+        });
         insertarjPanel.add(anadirjButton);
 
         anadirjPanel.add(insertarjPanel);
@@ -118,6 +131,23 @@ public class Motor extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void anadirjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirjTextFieldActionPerformed
+
+    }//GEN-LAST:event_anadirjTextFieldActionPerformed
+
+    private void anadirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirjButtonActionPerformed
+        if (!this.anadirjTextField.equals("")||!this.anadirjTextField.equals(" +")) {
+             if(g.anadir(this.anadirjTextField.getText())){
+                 this.estadoInsertarjLabel.setText("añadido");
+             this.estadoInsertarjLabel.setForeground(Color.green);
+             }else{
+                  this.estadoInsertarjLabel.setText("texto incorrecto");
+             this.estadoInsertarjLabel.setForeground(Color.red);
+             }
+             
+        }
+    }//GEN-LAST:event_anadirjButtonActionPerformed
 
     /**
      * @param args the command line arguments

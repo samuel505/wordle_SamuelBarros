@@ -102,6 +102,9 @@
                           <Dimension value="[160, 23]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anadirjTextFieldActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="anadirjButton">
                       <Properties>
@@ -110,6 +113,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anadirjButtonActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

@@ -20,17 +20,22 @@ public class Wordle_SamuelBarros1 {
     public static void main(String[] args) {
         GestorMotor gm = new GestorMotor();
         Scanner sc = new Scanner(System.in);
-       String texto= "";
-        
-        do {
-            texto = sc.nextLine();
-            gm.anadir(texto);
-        } while (!texto.equals("no"));
-        
+        String texto = "";
+
+//        do {
+//            texto = sc.nextLine();
+//
+//            if (!texto.equals("final")) {
+//                if (!gm.anadir(texto)) {
+//                    System.out.println("Inserte un texto valido");
+//                }
+//            }
+//
+//        } while (!texto.equals("final"));
+
+
+
        
-        
-       gm.test();
-        System.out.println(gm.palabraAleatoria());
     }
-    
+
 }
