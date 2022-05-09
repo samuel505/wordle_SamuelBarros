@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,8 +22,8 @@ import java.util.logging.Logger;
 public class GestorMotor implements iMotor {
 
     private static final File f = new File(Paths.get(".") + File.separator + "dat" + File.separator + "palabras.txt");
+    Set<String> palabras = new TreeSet<String>();
 
-    
     public boolean existe() {
         return f.exists();
 
@@ -42,36 +45,49 @@ public class GestorMotor implements iMotor {
             }
         }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));){
-                        bw.write(palabra);
-                        return true;
-                    } catch (IOException ex) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
+            bw.write(palabra);
+            return true;
+        } catch (IOException ex) {
             Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
     }
-        @Override
-        public boolean borrar
-        (String palabra
-        
-            ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
 
-        @Override
-        public String palabraAleatoria
+    @Override
+    public boolean borrar(String palabra) {
         
-            () {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public boolean existePalabra
-        (String palabra
+        return false;
         
-            ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
     }
+
+    
+    public void test() {
+        palabras.add("samuel");
+        palabras.add("lucas");
+        palabras.add("pedro");
+        palabras.add("juan");
+    }
+    
+    
+    
+    @Override
+    public String palabraAleatoria() {
+        
+        Random rm = new Random();
+        int random =rm.nextInt(palabras.size()-1);
+        String texto = "";
+      
+       Object array[] =palabras.toArray();
+       
+       return (String) array[random];
+    }
+
+    @Override
+    public boolean existePalabra(String palabra) {
+
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

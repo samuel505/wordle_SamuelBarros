@@ -21,9 +21,16 @@ public class Wordle_SamuelBarros1 {
         GestorMotor gm = new GestorMotor();
         Scanner sc = new Scanner(System.in);
        String texto= "";
-        System.out.println("aa");
-        texto = sc.nextLine();
-        gm.anadir(texto);
+        
+        do {
+            texto = sc.nextLine();
+            gm.anadir(texto);
+        } while (!texto.equals("no"));
+        
+       
+        
+       gm.test();
+        System.out.println(gm.palabraAleatoria());
     }
     
 }
