@@ -114,6 +114,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        idiomabuttonGroup = new javax.swing.ButtonGroup();
         mainjPanel = new javax.swing.JPanel();
         letrasjPanel = new javax.swing.JPanel();
         jLabel1_1 = new javax.swing.JLabel();
@@ -164,8 +165,8 @@ public class MainGUI extends javax.swing.JFrame {
         menujMenuBar = new javax.swing.JMenuBar();
         ArchivojMenu = new javax.swing.JMenu();
         MotoresjMenu = new javax.swing.JMenu();
-        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        esjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        enjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DAW1 Wordle SamuelBarros");
@@ -450,13 +451,24 @@ public class MainGUI extends javax.swing.JFrame {
 
         MotoresjMenu.setText("Motor");
 
-        jRadioButtonMenuItem1.setSelected(true);
-        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem");
-        MotoresjMenu.add(jRadioButtonMenuItem1);
+        idiomabuttonGroup.add(esjRadioButtonMenuItem);
+        esjRadioButtonMenuItem.setSelected(true);
+        esjRadioButtonMenuItem.setText("Español");
+        esjRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                esjRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
+        MotoresjMenu.add(esjRadioButtonMenuItem);
 
-        jRadioButtonMenuItem2.setSelected(true);
-        jRadioButtonMenuItem2.setText("jRadioButtonMenuItem2");
-        MotoresjMenu.add(jRadioButtonMenuItem2);
+        idiomabuttonGroup.add(enjRadioButtonMenuItem);
+        enjRadioButtonMenuItem.setText("Ingles");
+        enjRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enjRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
+        MotoresjMenu.add(enjRadioButtonMenuItem);
 
         menujMenuBar.add(MotoresjMenu);
 
@@ -476,6 +488,23 @@ public class MainGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void esjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esjRadioButtonMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_esjRadioButtonMenuItemActionPerformed
+
+    private void enjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enjRadioButtonMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enjRadioButtonMenuItemActionPerformed
+
+    
+    private void seleccionarMotor(){
+        if (this.esjRadioButtonMenuItem.isSelected()) {
+            
+        }else if(this.enjRadioButtonMenuItem.isSelected()){
+            
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -520,14 +549,17 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel bienjLabel;
     private javax.swing.JPanel bienjPanel;
     private javax.swing.JPanel bottomjPanel;
+    private javax.swing.JRadioButtonMenuItem enjRadioButtonMenuItem;
     private javax.swing.JButton enviarjButton;
     private javax.swing.JLabel errorjLabel;
     private javax.swing.JPanel errorjPanel;
+    private javax.swing.JRadioButtonMenuItem esjRadioButtonMenuItem;
     private javax.swing.JPanel estadojPanel;
     private javax.swing.JLabel existenjLabel;
     private javax.swing.JPanel existenjPanel;
     private javax.swing.JPanel exitojPanel;
     private javax.swing.JLabel finaljLabel;
+    private javax.swing.ButtonGroup idiomabuttonGroup;
     private javax.swing.JPanel inputjPanel;
     private javax.swing.JLabel jLabel1_1;
     private javax.swing.JLabel jLabel1_2;
@@ -559,8 +591,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6_3;
     private javax.swing.JLabel jLabel6_4;
     private javax.swing.JLabel jLabel6_5;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JPanel letrasjPanel;
     private javax.swing.JPanel mainjPanel;
     private javax.swing.JLabel maljLabel;
@@ -568,4 +598,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar menujMenuBar;
     private javax.swing.JTextField palabrasjTextField;
     // End of variables declaration//GEN-END:variables
+
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

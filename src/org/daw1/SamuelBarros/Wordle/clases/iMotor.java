@@ -8,7 +8,10 @@ package org.daw1.SamuelBarros.Wordle.clases;
  *
  * @author samuel505
  */
-public interface Motor {
-    
+public interface iMotor {
+    public boolean anadir(String palabra);
+    public boolean borrar(String palabra);
+    public String palabraAleatoria();
+    public boolean existePalabra(String palabra);
     
 }

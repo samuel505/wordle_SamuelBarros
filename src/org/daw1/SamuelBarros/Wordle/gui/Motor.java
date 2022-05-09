@@ -74,7 +74,7 @@ public class Motor extends javax.swing.JDialog {
         estadoInsertarjPanel.setLayout(new java.awt.GridBagLayout());
 
         estadoInsertarjLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        estadoInsertarjLabel.setText("jLabel2");
+        estadoInsertarjLabel.setText("errores");
         estadoInsertarjPanel.add(estadoInsertarjLabel, new java.awt.GridBagConstraints());
 
         anadirjPanel.add(estadoInsertarjPanel);
@@ -96,7 +96,7 @@ public class Motor extends javax.swing.JDialog {
         estadoBorradojPanel.setLayout(new java.awt.GridBagLayout());
 
         estadoBorrarjLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        estadoBorrarjLabel.setText("jLabel2");
+        estadoBorrarjLabel.setText("errores");
         estadoBorradojPanel.add(estadoBorrarjLabel, new java.awt.GridBagConstraints());
 
         borrarjPanel.add(estadoBorradojPanel);
