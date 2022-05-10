@@ -4,8 +4,11 @@
  */
 package org.daw1.SamuelBarros.Wordle.clases;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -21,7 +24,8 @@ import java.util.logging.Logger;
  */
 public class GestorMotor implements iMotor {
 
-    private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabras.txt");
+    private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
+    private static final File f2 = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
     Set<String> palabras = new TreeSet<String>();
 
     public boolean existe() {
@@ -29,17 +33,46 @@ public class GestorMotor implements iMotor {
 
     }
 
-    private void cargarTextos() {
+    public boolean cargarTextosEspanol() throws IOException  {
 
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(f));
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+            return false;
+            //Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        String texto = "";
+        if (texto == null) {
+            return false;
+        }
+        while (texto != null) {
+
+           // System.out.println(texto);
+            try {
+                
+                texto = br.readLine();
+                if (texto!=null) {
+                    palabras.add(texto);
+                    
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }
+        }
+        System.out.println(palabras);
+        return true;
         
     }
 
     
-    
     @Override
     public boolean anadir(String palabra) {
         if (!palabra.matches("[A-Za-z]{5}")) {
-            return false; 
+            return false;
         } else {
             if (!f.exists()) {
                 f.getParentFile().mkdirs();
@@ -51,7 +84,7 @@ public class GestorMotor implements iMotor {
                 }
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f,true));) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));) {
                 bw.write(palabra);
                 bw.newLine();
                 return true;
@@ -60,7 +93,7 @@ public class GestorMotor implements iMotor {
                 return false;
             }
         }
-        
+
     }
 
     @Override
@@ -84,21 +117,20 @@ public class GestorMotor implements iMotor {
     public String palabraAleatoria() {
 
         Random rm = new Random();
-        int random = rm.nextInt(palabras.size() - 1);
+        int random = rm.nextInt(palabras.size());
         String texto = "";
 
         Object array[] = palabras.toArray();
-
-        return (String) array[random];
+        String palabra = (String) array[random];
+       // System.out.println(palabra);
+        return palabra;
     }
 
     @Override
     public boolean existePalabra(String palabra) {
 
-       
         return false;
 
-       
     }
 
 }

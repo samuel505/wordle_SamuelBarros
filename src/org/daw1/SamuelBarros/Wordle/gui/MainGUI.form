@@ -16,10 +16,18 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ArchivojMenuMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MotoresjMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Motor"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="idiomajMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="idioma"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="esjRadioButtonMenuItem">
@@ -559,6 +567,9 @@
                       <Dimension value="[75, 25]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarjButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

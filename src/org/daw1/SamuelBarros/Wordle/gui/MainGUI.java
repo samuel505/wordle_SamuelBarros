@@ -6,9 +6,11 @@
 package org.daw1.SamuelBarros.wordle.gui;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotor;
 
 /**
  *
@@ -16,6 +18,8 @@ import javax.swing.JLabel;
  */
 public class MainGUI extends javax.swing.JFrame {
 
+    String palabraAleatoria = "";
+    GestorMotor gm = new GestorMotor();
     private static final Color COLOR_ROJO = new Color(255, 0, 0);
     private static final Color COLOR_AMARILLO = new Color(255, 255, 0);
     private static final Color COLOR_VERDE = new Color(0, 255, 0);
@@ -49,8 +53,7 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
-    
-    public void testCambiarLetra(int fila,int letra) {
+    public void testCambiarLetra(int fila, int letra) {
 
         JLabel[] label = labels[fila];
         for (int j = 0; j < label.length; j++) {
@@ -60,19 +63,15 @@ public class MainGUI extends javax.swing.JFrame {
 
         }
     }
-    
-    
-    
-    public void testCambiarFila(int i) {
 
-        JLabel[] label = labels[i];
+    public void testCambiarPalabra(int fila, char[] p) {
+
+        JLabel[] label = labels[fila];
         for (int j = 0; j < label.length; j++) {
-            JLabel jLabel = label[j];
-            jLabel.setVisible(false);
-            //jLabel.setForeground(COLOR_ROJO);
-
+            JLabel l = label[j];
+            l.setVisible(true);
+            l.setText(p[j] + "");
         }
-
     }
 
     public final void IniciarLabels() {
@@ -91,19 +90,140 @@ public class MainGUI extends javax.swing.JFrame {
 
     }
 
-    /**
-     * Creates new form gui
-     */
-    public MainGUI() {
+//**************************************************************************
+//(arreglar amarillo, bucle dowhile, y crear clases?)
+    int intento = 1;
+    String letrasV = "";
+    String letrasA = "";
+    String letrasR = "";
+
+    public void existeLetras(String p) {
+        //p="pablo";
+        //String a ="samue";
+        String a = palabraAleatoria;
+        char persona[] = p.toCharArray();
+        char aleatorio[] = a.toCharArray();
+        boolean ganador = false;
+
+        //do {
+        if (a.equals(p)) {
+            System.out.println("GANADOR!!!!");
+            ganador = true;
+            testCambiarPalabra(intento - 1, persona);
+            JLabel[] label = labels[intento - 1];
+            for (int j = 0; j < label.length; j++) {
+                JLabel l = label[j];
+                l.setVisible(true);
+                l.setForeground(COLOR_VERDE);
+            }
+
+        } else {
+            testCambiarPalabra(intento - 1, persona);
+            JLabel[] label = labels[intento - 1];
+            for (int j = 0; j < label.length; j++) {
+                JLabel l = label[j];
+                l.setVisible(true);
+                if (persona[j] == aleatorio[j]) {
+                    l.setForeground(COLOR_VERDE);
+
+                    if (!letrasV.contains(persona[j] + "")) {
+                        letrasV += persona[j] + " ";
+                    }
+                    bienjLabel.setText(letrasV);
+
+                } else if (a.contains(persona[j] + "")) {
+                    l.setForeground(COLOR_AMARILLO);
+                    if (!letrasA.contains(persona[j] + "")) {
+                        letrasA += persona[j] + " ";
+                    }
+
+                    existenjLabel.setText(letrasA);
+                } else {
+                    l.setForeground(COLOR_ROJO);
+
+                    if (!letrasR.contains(persona[j] + "")) {
+                        letrasR += persona[j] + " ";;
+                    }
+
+                    maljLabel.setText(letrasR);
+                }
+                //l.setForeground(COLOR_VERDE);
+            }
+            if (intento < 6) {
+                intento++;
+                System.out.println("intento nº " + intento);
+            }
+        }
+
+        // } while (intento < 6&&ganador==false);
+    }
+
+    public final void IniciarPartida() throws IOException {
+        intento = 1;
         initComponents();
         IniciarLabels();
         ocultarFilas();
-        //testFilas();
-        //testCambiarFila(0);
-        testCambiarLetra(0,0);
+
+    }
+//--------------------------------------------------//
+
+    public MainGUI() {
+        try {
+            IniciarPartida();
+            enviarjButton.setEnabled(false);
+            //testFilas();
+            //testCambiarFila(0);
+            //testCambiarLetra(0,0);
+            //testCambiarPalabra(0, "");
+        } catch (IOException ex) {
+            Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
+    private void nuevaPartida(){
+        
+        if (esjRadioButtonMenuItem.isSelected()) {
+            System.out.println("Español seleccionado");
+            intento = 1;
+            enviarjButton.setEnabled(true);
+            try {
+                gm.cargarTextosEspanol();
+            } catch (IOException ex) {
+                System.out.println("no se pudo cargar los datos");
+            }
+            palabraAleatoria = gm.palabraAleatoria();
+            System.out.println(palabraAleatoria);
+
+            //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+            if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
+                ocultarFilas();
+            }
+        }else if(enjRadioButtonMenuItem.isSelected()){
+            System.out.println("Ingles seleccionado");
+            intento = 1;
+            enviarjButton.setEnabled(true);
+            try {
+                gm.cargarTextosEspanol();
+            } catch (IOException ex) {
+                System.out.println("no se pudo cargar los datos");
+            }
+            palabraAleatoria = gm.palabraAleatoria();
+            System.out.println(palabraAleatoria);
+
+            //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+            if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
+                ocultarFilas();
+            }
+            
+        }
         
     }
     
+    
+    
+    
+//**************************************************************************
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -165,6 +285,7 @@ public class MainGUI extends javax.swing.JFrame {
         menujMenuBar = new javax.swing.JMenuBar();
         ArchivojMenu = new javax.swing.JMenu();
         MotoresjMenu = new javax.swing.JMenu();
+        idiomajMenu = new javax.swing.JMenu();
         esjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         enjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
 
@@ -409,6 +530,11 @@ public class MainGUI extends javax.swing.JFrame {
         enviarjButton.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         enviarjButton.setText("Enviar");
         enviarjButton.setPreferredSize(new java.awt.Dimension(75, 25));
+        enviarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarjButtonActionPerformed(evt);
+            }
+        });
         inputjPanel.add(enviarjButton);
 
         bottomjPanel.add(inputjPanel);
@@ -447,9 +573,17 @@ public class MainGUI extends javax.swing.JFrame {
         menujMenuBar.setOpaque(false);
 
         ArchivojMenu.setText("Archivo");
+        ArchivojMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ArchivojMenuMouseClicked(evt);
+            }
+        });
         menujMenuBar.add(ArchivojMenu);
 
         MotoresjMenu.setText("Motor");
+        menujMenuBar.add(MotoresjMenu);
+
+        idiomajMenu.setText("idioma");
 
         idiomabuttonGroup.add(esjRadioButtonMenuItem);
         esjRadioButtonMenuItem.setSelected(true);
@@ -459,7 +593,7 @@ public class MainGUI extends javax.swing.JFrame {
                 esjRadioButtonMenuItemActionPerformed(evt);
             }
         });
-        MotoresjMenu.add(esjRadioButtonMenuItem);
+        idiomajMenu.add(esjRadioButtonMenuItem);
 
         idiomabuttonGroup.add(enjRadioButtonMenuItem);
         enjRadioButtonMenuItem.setText("Ingles");
@@ -468,9 +602,9 @@ public class MainGUI extends javax.swing.JFrame {
                 enjRadioButtonMenuItemActionPerformed(evt);
             }
         });
-        MotoresjMenu.add(enjRadioButtonMenuItem);
+        idiomajMenu.add(enjRadioButtonMenuItem);
 
-        menujMenuBar.add(MotoresjMenu);
+        menujMenuBar.add(idiomajMenu);
 
         setJMenuBar(menujMenuBar);
 
@@ -489,22 +623,28 @@ public class MainGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void esjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esjRadioButtonMenuItemActionPerformed
-        // TODO add your handling code here:
+        nuevaPartida();
     }//GEN-LAST:event_esjRadioButtonMenuItemActionPerformed
 
     private void enjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enjRadioButtonMenuItemActionPerformed
-        // TODO add your handling code here:
+        nuevaPartida();
     }//GEN-LAST:event_enjRadioButtonMenuItemActionPerformed
 
-    
-    private void seleccionarMotor(){
-        if (this.esjRadioButtonMenuItem.isSelected()) {
-            
-        }else if(this.enjRadioButtonMenuItem.isSelected()){
-            
-        }
-        
+    private void enviarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarjButtonActionPerformed
+
+        existeLetras(this.palabrasjTextField.getText());
+        //existeLetras(usuario");
+    }//GEN-LAST:event_enviarjButtonActionPerformed
+
+    private void ArchivojMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivojMenuMouseClicked
+
+        nuevaPartida();
+    }//GEN-LAST:event_ArchivojMenuMouseClicked
+
+    private void seleccionarMotor() {
+
     }
+
     /**
      * @param args the command line arguments
      */
@@ -560,6 +700,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel exitojPanel;
     private javax.swing.JLabel finaljLabel;
     private javax.swing.ButtonGroup idiomabuttonGroup;
+    private javax.swing.JMenu idiomajMenu;
     private javax.swing.JPanel inputjPanel;
     private javax.swing.JLabel jLabel1_1;
     private javax.swing.JLabel jLabel1_2;
