@@ -16,14 +16,43 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ArchivojMenuMouseClicked"/>
-          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="nuevojMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="nueva partida"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevojMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="salirjMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="salir"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MotoresjMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Motor"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="ajustesjMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ajustes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="testjMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="test"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="baseDatosjMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="base de datos"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="idiomajMenu">
           <Properties>

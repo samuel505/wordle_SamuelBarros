@@ -108,7 +108,7 @@ public class MainGUI extends javax.swing.JFrame {
         //do {
         if (a.equals(p)) {
             System.out.println("GANADOR!!!!");
-            ganador = true;
+          
             testCambiarPalabra(intento - 1, persona);
             JLabel[] label = labels[intento - 1];
             for (int j = 0; j < label.length; j++) {
@@ -142,7 +142,7 @@ public class MainGUI extends javax.swing.JFrame {
                     l.setForeground(COLOR_ROJO);
 
                     if (!letrasR.contains(persona[j] + "")) {
-                        letrasR += persona[j] + " ";;
+                        letrasR += persona[j] + " ";
                     }
 
                     maljLabel.setText(letrasR);
@@ -170,6 +170,7 @@ public class MainGUI extends javax.swing.JFrame {
     public MainGUI() {
         try {
             IniciarPartida();
+            
             enviarjButton.setEnabled(false);
             //testFilas();
             //testCambiarFila(0);
@@ -180,9 +181,8 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
-    
-    private void nuevaPartida(){
-        
+    private void nuevaPartida() {
+
         if (esjRadioButtonMenuItem.isSelected()) {
             System.out.println("Español seleccionado");
             intento = 1;
@@ -199,7 +199,7 @@ public class MainGUI extends javax.swing.JFrame {
             if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
                 ocultarFilas();
             }
-        }else if(enjRadioButtonMenuItem.isSelected()){
+        } else if (enjRadioButtonMenuItem.isSelected()) {
             System.out.println("Ingles seleccionado");
             intento = 1;
             enviarjButton.setEnabled(true);
@@ -215,14 +215,11 @@ public class MainGUI extends javax.swing.JFrame {
             if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
                 ocultarFilas();
             }
-            
+
         }
-        
+
     }
-    
-    
-    
-    
+
 //**************************************************************************
     /**
      * This method is called from within the constructor to initialize the form.
@@ -284,7 +281,12 @@ public class MainGUI extends javax.swing.JFrame {
         errorjLabel = new javax.swing.JLabel();
         menujMenuBar = new javax.swing.JMenuBar();
         ArchivojMenu = new javax.swing.JMenu();
+        nuevojMenuItem = new javax.swing.JMenuItem();
+        salirjMenuItem = new javax.swing.JMenuItem();
         MotoresjMenu = new javax.swing.JMenu();
+        ajustesjMenuItem = new javax.swing.JMenuItem();
+        testjMenuItem = new javax.swing.JMenuItem();
+        baseDatosjMenuItem = new javax.swing.JMenuItem();
         idiomajMenu = new javax.swing.JMenu();
         esjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         enjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
@@ -573,14 +575,31 @@ public class MainGUI extends javax.swing.JFrame {
         menujMenuBar.setOpaque(false);
 
         ArchivojMenu.setText("Archivo");
-        ArchivojMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ArchivojMenuMouseClicked(evt);
+
+        nuevojMenuItem.setText("nueva partida");
+        nuevojMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevojMenuItemActionPerformed(evt);
             }
         });
+        ArchivojMenu.add(nuevojMenuItem);
+
+        salirjMenuItem.setText("salir");
+        ArchivojMenu.add(salirjMenuItem);
+
         menujMenuBar.add(ArchivojMenu);
 
         MotoresjMenu.setText("Motor");
+
+        ajustesjMenuItem.setText("ajustes");
+        MotoresjMenu.add(ajustesjMenuItem);
+
+        testjMenuItem.setText("test");
+        MotoresjMenu.add(testjMenuItem);
+
+        baseDatosjMenuItem.setText("base de datos");
+        MotoresjMenu.add(baseDatosjMenuItem);
+
         menujMenuBar.add(MotoresjMenu);
 
         idiomajMenu.setText("idioma");
@@ -636,10 +655,10 @@ public class MainGUI extends javax.swing.JFrame {
         //existeLetras(usuario");
     }//GEN-LAST:event_enviarjButtonActionPerformed
 
-    private void ArchivojMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivojMenuMouseClicked
-
+    private void nuevojMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevojMenuItemActionPerformed
         nuevaPartida();
-    }//GEN-LAST:event_ArchivojMenuMouseClicked
+
+    }//GEN-LAST:event_nuevojMenuItemActionPerformed
 
     private void seleccionarMotor() {
 
@@ -686,6 +705,8 @@ public class MainGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ArchivojMenu;
     private javax.swing.JMenu MotoresjMenu;
+    private javax.swing.JMenuItem ajustesjMenuItem;
+    private javax.swing.JMenuItem baseDatosjMenuItem;
     private javax.swing.JLabel bienjLabel;
     private javax.swing.JPanel bienjPanel;
     private javax.swing.JPanel bottomjPanel;
@@ -737,7 +758,10 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel maljLabel;
     private javax.swing.JPanel maljPanel;
     private javax.swing.JMenuBar menujMenuBar;
+    private javax.swing.JMenuItem nuevojMenuItem;
     private javax.swing.JTextField palabrasjTextField;
+    private javax.swing.JMenuItem salirjMenuItem;
+    private javax.swing.JMenuItem testjMenuItem;
     // End of variables declaration//GEN-END:variables
 
     public void run() {
