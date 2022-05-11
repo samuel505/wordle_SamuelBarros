@@ -2,21 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-
+package org.daw1.SamuelBarros.Wordle.gui;
 
 import java.awt.Color;
-import org.daw1.SamuelBarros.Wordle.clases.GestorMotor;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotorArchivo;
 
 /**
  *
  * @author samuel505
  */
-public class Motor extends javax.swing.JDialog {
-GestorMotor g = new GestorMotor();
+public class MotorArchivo extends javax.swing.JDialog {
+GestorMotorArchivo g = new GestorMotorArchivo();
     /**
      * Creates new form Motor
      */
-    public Motor(java.awt.Frame parent, boolean modal) {
+    public MotorArchivo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -87,7 +87,6 @@ GestorMotor g = new GestorMotor();
         estadoInsertarjPanel.setLayout(new java.awt.GridBagLayout());
 
         estadoInsertarjLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        estadoInsertarjLabel.setText("errores");
         estadoInsertarjPanel.add(estadoInsertarjLabel, new java.awt.GridBagConstraints());
 
         anadirjPanel.add(estadoInsertarjPanel);
@@ -102,6 +101,11 @@ GestorMotor g = new GestorMotor();
 
         borrarjButton.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         borrarjButton.setText("Borrar");
+        borrarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarjButtonActionPerformed(evt);
+            }
+        });
         borradojPanel.add(borrarjButton);
 
         borrarjPanel.add(borradojPanel);
@@ -109,7 +113,7 @@ GestorMotor g = new GestorMotor();
         estadoBorradojPanel.setLayout(new java.awt.GridBagLayout());
 
         estadoBorrarjLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        estadoBorrarjLabel.setText("errores");
+        estadoBorrarjLabel.setText("  ");
         estadoBorradojPanel.add(estadoBorrarjLabel, new java.awt.GridBagConstraints());
 
         borrarjPanel.add(estadoBorradojPanel);
@@ -149,9 +153,24 @@ GestorMotor g = new GestorMotor();
         }
     }//GEN-LAST:event_anadirjButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void borrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarjButtonActionPerformed
+         if (!this.borrarjTextField.equals("")||!this.borrarjTextField.equals(" +")) {
+             if(g.borrar(this.borrarjTextField.getText())){
+               this.estadoBorrarjLabel.setText("borrado");
+             this.estadoBorrarjLabel.setForeground(Color.green);
+             }else{
+                  this.estadoBorrarjLabel.setText("no se pudo borrar");
+             this.estadoBorrarjLabel.setForeground(Color.red);
+             }
+
+        }
+    }//GEN-LAST:event_borrarjButtonActionPerformed
+
+    
+
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -166,22 +185,23 @@ GestorMotor g = new GestorMotor();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Motor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Motor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Motor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Motor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MotorArchivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Motor dialog = new Motor(new javax.swing.JFrame(), true);
+                MotorArchivo dialog = new MotorArchivo(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
+                    
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }

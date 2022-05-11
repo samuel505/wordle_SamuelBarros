@@ -22,15 +22,26 @@ import java.util.logging.Logger;
  *
  * @author samuel505
  */
-public class GestorMotor implements iMotor {
+public class GestorMotorBaseDeDatos implements iMotor {
 
     private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
     private static final File f2 = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
-    Set<String> palabras = new TreeSet<String>();
+    private final Set<String> palabras = new TreeSet<String>();
 
     public boolean existe() {
         return f.exists();
 
+    }
+   
+    public boolean comprobarTexto(String p){
+        String texto = "";
+        for (String palabra : palabras) {
+            texto +=palabra +" ";
+        }
+        if (texto.contains(p)) {
+            return true;
+        }
+        return false;
     }
 
     public boolean cargarTextosEspanol() throws IOException  {
@@ -41,7 +52,7 @@ public class GestorMotor implements iMotor {
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
             return false;
-            //Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
             
         }
         String texto = "";
@@ -59,7 +70,7 @@ public class GestorMotor implements iMotor {
                     
                 }
             } catch (IOException ex) {
-                Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
                 
             }
         }
@@ -79,7 +90,7 @@ public class GestorMotor implements iMotor {
                 try {
                     f.createNewFile();
                 } catch (IOException ex) {
-                    Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
                 }
             }
@@ -89,7 +100,7 @@ public class GestorMotor implements iMotor {
                 bw.newLine();
                 return true;
             } catch (IOException ex) {
-                Logger.getLogger(GestorMotor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
         }

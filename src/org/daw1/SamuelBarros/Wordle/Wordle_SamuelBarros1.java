@@ -6,7 +6,7 @@
 package org.daw1.SamuelBarros.Wordle;
 
 import java.util.Scanner;
-import org.daw1.SamuelBarros.Wordle.clases.GestorMotor;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotorArchivo;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Wordle_SamuelBarros1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GestorMotor gm = new GestorMotor();
+        GestorMotorArchivo gm = new GestorMotorArchivo();
         Scanner sc = new Scanner(System.in);
         String texto = "";
 
