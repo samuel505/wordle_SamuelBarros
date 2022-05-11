@@ -120,42 +120,52 @@ public class GestorMotorArchivo implements iMotor {
         if (!palabras.contains(p)) {
             return false;
         }
-System.out.println("antes de borrar"+palabras);
- Iterator<String> it = palabras.iterator();
+        System.out.println("antes de borrar" + palabras);
+        Iterator<String> it = palabras.iterator();
         do {
-          String next = it.next();
+            String next = it.next();
             if (p.equals(next)) {
                 it.remove();
             }
         } while (it.hasNext());
-        
-            
-       
 
-        
-        System.out.println("despues de borrar"+palabras);
-        Iterator<String> i= palabras.iterator();
-        do {
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                try {
-                    f.createNewFile();
+        System.out.println("despues de borrar" + palabras);
+
+        if (!f.exists()) {
+            f.getParentFile().mkdirs();
+            try {
+                f.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        } else {
+           
+            if (f.delete()) {
+                System.out.println("Se a borrado");
+            }else{
+                System.out.println("no se ha borrado");
+            }
+            f.getParentFile().mkdirs();
+            try {
+                f.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        for (String palabra : palabras) {
+            if (!palabras.isEmpty()) {
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));) {
+                    bw.append(palabra + "\n");
+
                 } catch (IOException ex) {
                     Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
                 }
             }
+        }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
-                bw.write(i.next());
-                bw.newLine();
-                
-            } catch (IOException ex) {
-                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
-        } while (i.hasNext());
-        System.out.println(palabras);
         return true;
     }
 
