@@ -93,10 +93,16 @@ public class MainGUI extends javax.swing.JFrame {
 //**************************************************************************
 //(arreglar amarillo, bucle dowhile, y crear clases?)
     int intento = 1;
-    String letrasV = "";
+    
+     String letrasV = "";
     String letrasA = "";
     String letrasR = "";
-
+    char V [] = letrasV.toCharArray();
+    char A [] = letrasA.toCharArray();
+    char R [] = letrasR.toCharArray();
+    
+    
+    
     public void existeLetras(String p) {
         //p="pablo";
         //String a ="samue";
