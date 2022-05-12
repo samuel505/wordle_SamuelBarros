@@ -113,7 +113,8 @@ public class MainGUI extends javax.swing.JFrame {
             if (a.toUpperCase().equals(p.toUpperCase())) {
                 //System.out.println("GANADOR!!!!");
                 finaljLabel.setText("Has ganado en " + intento + " intentos!!");
-
+                enviarjButton.setEnabled(false);
+                palabrasjTextField.setEnabled(false);
                 testCambiarPalabra(intento - 1, persona);
                 JLabel[] label = labels[intento - 1];
                 for (int j = 0; j < label.length; j++) {
@@ -188,6 +189,7 @@ public class MainGUI extends javax.swing.JFrame {
         try {
             IniciarPartida();
 
+            palabrasjTextField.setEnabled(false);
             enviarjButton.setEnabled(false);
             //testFilas();
             //testCambiarFila(0);
@@ -200,9 +202,8 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void nuevaPartida() {
 
-   
-        
-        
+        palabrasjTextField.setEnabled(true);
+
         if (esjRadioButtonMenuItem.isSelected()) {
             System.out.println("Español seleccionado");
             intento = 1;
@@ -705,13 +706,11 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void ajustesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajustesjMenuItemActionPerformed
         MotorArchivo dialog = new MotorArchivo(this, true);
-        dialog.setVisible(true);
-
+        dialog.setVisible(true);  
+        nuevaPartida();
     }//GEN-LAST:event_ajustesjMenuItemActionPerformed
 
-    private void seleccionarMotor() {
-
-    }
+   
 
     /**
      * @param args the command line arguments
