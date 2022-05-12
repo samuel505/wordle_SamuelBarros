@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.daw1.SamuelBarros.wordle.gui;
+package org.daw1.SamuelBarros.Wordle.gui;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
-import org.daw1.SamuelBarros.Wordle.clases.GestorMotor;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotorArchivo;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotorBaseDeDatos;
 
 /**
  *
@@ -19,7 +20,18 @@ import org.daw1.SamuelBarros.Wordle.clases.GestorMotor;
 public class MainGUI extends javax.swing.JFrame {
 
     String palabraAleatoria = "";
-    GestorMotor gm = new GestorMotor();
+    GestorMotorArchivo gm;
+
+    private void selectMotor() {
+        if (this.archivojRadioButtonMenuItem.isSelected()) {
+            new GestorMotorArchivo();
+            //nuevaPartida();
+        } else if (this.baseDeDatosjRadioButtonMenuItem.isSelected()) {
+            new GestorMotorBaseDeDatos();
+            //nuevaPartida();
+        }
+    }
+
     private static final Color COLOR_ROJO = new Color(255, 0, 0);
     private static final Color COLOR_AMARILLO = new Color(255, 255, 0);
     private static final Color COLOR_VERDE = new Color(0, 255, 0);
@@ -93,16 +105,14 @@ public class MainGUI extends javax.swing.JFrame {
 //**************************************************************************
 //(arreglar amarillo, bucle dowhile, y crear clases?)
     int intento = 1;
-    
-     String letrasV = "";
+
+    String letrasV = "";
     String letrasA = "";
     String letrasR = "";
-    char V [] = letrasV.toCharArray();
-    char A [] = letrasA.toCharArray();
-    char R [] = letrasR.toCharArray();
-    
-    
-    
+    char V[] = letrasV.toCharArray();
+    char A[] = letrasA.toCharArray();
+    char R[] = letrasR.toCharArray();
+
     public void existeLetras(String p) {
         //p="pablo";
         //String a ="samue";
@@ -114,7 +124,7 @@ public class MainGUI extends javax.swing.JFrame {
         //do {
         if (a.equals(p)) {
             System.out.println("GANADOR!!!!");
-          
+
             testCambiarPalabra(intento - 1, persona);
             JLabel[] label = labels[intento - 1];
             for (int j = 0; j < label.length; j++) {
@@ -176,7 +186,7 @@ public class MainGUI extends javax.swing.JFrame {
     public MainGUI() {
         try {
             IniciarPartida();
-            
+            selectMotor();
             enviarjButton.setEnabled(false);
             //testFilas();
             //testCambiarFila(0);
@@ -238,6 +248,7 @@ public class MainGUI extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         idiomabuttonGroup = new javax.swing.ButtonGroup();
+        MotorbuttonGroup = new javax.swing.ButtonGroup();
         mainjPanel = new javax.swing.JPanel();
         letrasjPanel = new javax.swing.JPanel();
         jLabel1_1 = new javax.swing.JLabel();
@@ -291,8 +302,9 @@ public class MainGUI extends javax.swing.JFrame {
         salirjMenuItem = new javax.swing.JMenuItem();
         MotoresjMenu = new javax.swing.JMenu();
         ajustesjMenuItem = new javax.swing.JMenuItem();
-        testjMenuItem = new javax.swing.JMenuItem();
-        baseDatosjMenuItem = new javax.swing.JMenuItem();
+        baseDeDatosjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        archivojRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        testjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         idiomajMenu = new javax.swing.JMenu();
         esjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         enjRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
@@ -600,11 +612,23 @@ public class MainGUI extends javax.swing.JFrame {
         ajustesjMenuItem.setText("ajustes");
         MotoresjMenu.add(ajustesjMenuItem);
 
-        testjMenuItem.setText("test");
-        MotoresjMenu.add(testjMenuItem);
+        MotorbuttonGroup.add(baseDeDatosjRadioButtonMenuItem);
+        baseDeDatosjRadioButtonMenuItem.setText("base de datos");
+        MotoresjMenu.add(baseDeDatosjRadioButtonMenuItem);
 
-        baseDatosjMenuItem.setText("base de datos");
-        MotoresjMenu.add(baseDatosjMenuItem);
+        MotorbuttonGroup.add(archivojRadioButtonMenuItem);
+        archivojRadioButtonMenuItem.setSelected(true);
+        archivojRadioButtonMenuItem.setText("archivo");
+        MotoresjMenu.add(archivojRadioButtonMenuItem);
+
+        MotorbuttonGroup.add(testjRadioButtonMenuItem);
+        testjRadioButtonMenuItem.setText("test");
+        testjRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testjRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
+        MotoresjMenu.add(testjRadioButtonMenuItem);
 
         menujMenuBar.add(MotoresjMenu);
 
@@ -666,6 +690,10 @@ public class MainGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_nuevojMenuItemActionPerformed
 
+    private void testjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testjRadioButtonMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_testjRadioButtonMenuItemActionPerformed
+
     private void seleccionarMotor() {
 
     }
@@ -710,9 +738,11 @@ public class MainGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ArchivojMenu;
+    private javax.swing.ButtonGroup MotorbuttonGroup;
     private javax.swing.JMenu MotoresjMenu;
     private javax.swing.JMenuItem ajustesjMenuItem;
-    private javax.swing.JMenuItem baseDatosjMenuItem;
+    private javax.swing.JRadioButtonMenuItem archivojRadioButtonMenuItem;
+    private javax.swing.JRadioButtonMenuItem baseDeDatosjRadioButtonMenuItem;
     private javax.swing.JLabel bienjLabel;
     private javax.swing.JPanel bienjPanel;
     private javax.swing.JPanel bottomjPanel;
@@ -767,7 +797,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem nuevojMenuItem;
     private javax.swing.JTextField palabrasjTextField;
     private javax.swing.JMenuItem salirjMenuItem;
-    private javax.swing.JMenuItem testjMenuItem;
+    private javax.swing.JRadioButtonMenuItem testjRadioButtonMenuItem;
     // End of variables declaration//GEN-END:variables
 
     public void run() {

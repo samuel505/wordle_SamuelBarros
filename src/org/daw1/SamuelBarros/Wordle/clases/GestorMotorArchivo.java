@@ -149,13 +149,14 @@ System.out.println("antes de borrar"+palabras);
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
                 bw.write(i.next());
                 bw.newLine();
+                System.out.println(i.toString());
                 
             } catch (IOException ex) {
                 Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
         } while (i.hasNext());
-        System.out.println(palabras);
+        System.out.println("despues de guardar en el archivo "+ palabras);
         return true;
     }
 
