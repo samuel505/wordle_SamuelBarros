@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import org.daw1.SamuelBarros.Wordle.clases.GestorMotorArchivo;
+import org.daw1.SamuelBarros.Wordle.clases.GestorMotorBaseDeDatos;
 
 /**
  *
@@ -22,6 +23,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     String palabraAleatoria = "";
     GestorMotorArchivo gm = new GestorMotorArchivo();
+    GestorMotorBaseDeDatos gm2 = new GestorMotorBaseDeDatos();
 
     private static final Color COLOR_ROJO = new Color(255, 0, 0);
     private static final Color COLOR_AMARILLO = new Color(255, 255, 0);
@@ -46,7 +48,7 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     public void ocultarFilas() {
-
+        finaljLabel.setVisible(false);
         for (int i = 0; i < labels.length; i++) {
             JLabel[] label = labels[i];
             for (int j = 0; j < label.length; j++) {
@@ -113,6 +115,8 @@ public class MainGUI extends javax.swing.JFrame {
             if (a.toUpperCase().equals(p.toUpperCase())) {
                 //System.out.println("GANADOR!!!!");
                 finaljLabel.setText("Has ganado en " + intento + " intentos!!");
+
+                finaljLabel.setVisible(true);
                 enviarjButton.setEnabled(false);
                 palabrasjTextField.setEnabled(false);
                 testCambiarPalabra(intento - 1, persona);
@@ -121,6 +125,24 @@ public class MainGUI extends javax.swing.JFrame {
                     JLabel l = label[j];
                     l.setVisible(true);
                     l.setForeground(COLOR_VERDE);
+                }
+                for (int j = 0; j < label.length; j++) {
+                    JLabel l = label[j];
+                    l.setVisible(true);
+                    if (persona[j] == aleatorio[j]) {
+                        l.setForeground(COLOR_VERDE);
+
+                        letrasV.add((persona[j] + "").toUpperCase());
+
+                        String sV = "";
+                        for (String lV : letrasV) {
+                            sV += lV + " ";
+                        }
+
+                        bienjLabel.setText(sV);
+
+                    }
+
                 }
 
             } else {
@@ -201,43 +223,121 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     private void nuevaPartida() {
+        bienjLabel.setText("");
+        existenjLabel.setText("");
+        maljLabel.setText("");
+        if (archivojRadioButtonMenuItem.isSelected()) {
+
+            if (esjRadioButtonMenuItem.isSelected()) {
+                System.out.println("Español seleccionado");
+                intento = 1;
+                enviarjButton.setEnabled(true);
+                try {
+                    gm.cargarTextosEspanol();
+                } catch (IOException ex) {
+                    System.out.println("no se pudo cargar los datos");
+                }
+                palabraAleatoria = gm.palabraAleatoria();
+                System.out.println(palabraAleatoria);
+
+                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
+                    ocultarFilas();
+                }
+            } else if (enjRadioButtonMenuItem.isSelected()) {
+                System.out.println("Ingles seleccionado");
+                intento = 1;
+                enviarjButton.setEnabled(true);
+                try {
+                    gm.cargarTextosIngles();
+                } catch (IOException ex) {
+                    System.out.println("no se pudo cargar los datos");
+                }
+                palabraAleatoria = gm.palabraAleatoria();
+                System.out.println(palabraAleatoria);
+
+                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
+                    ocultarFilas();
+
+                }
+
+            }
+        } else if (baseDeDatosjRadioButtonMenuItem.isSelected()) {
+
+            if (esjRadioButtonMenuItem.isSelected()) {
+                System.out.println("Español seleccionado");
+                intento = 1;
+                enviarjButton.setEnabled(true);
+                try {
+                    gm2.cargarTextosEspanol();
+                } catch (IOException ex) {
+                    System.out.println("no se pudo cargar los datos");
+                }
+                palabraAleatoria = gm2.palabraAleatoria();
+                System.out.println(palabraAleatoria);
+
+                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
+                    ocultarFilas();
+                }
+            } else if (enjRadioButtonMenuItem.isSelected()) {
+                System.out.println("Ingles seleccionado");
+                intento = 1;
+                enviarjButton.setEnabled(true);
+                try {
+                    gm2.cargarTextosIngles();
+                } catch (IOException ex) {
+                    System.out.println("no se pudo cargar los datos");
+                }
+                palabraAleatoria = gm2.palabraAleatoria();
+                System.out.println(palabraAleatoria);
+
+                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
+                    ocultarFilas();
+                }
+
+            }
+        } else if (testjRadioButtonMenuItem.isSelected()) {
+
+            if (esjRadioButtonMenuItem.isSelected()) {
+                System.out.println("Español seleccionado");
+                intento = 1;
+                enviarjButton.setEnabled(true);
+                try {
+                    gm.cargarTextosEspanol();
+                } catch (IOException ex) {
+                    System.out.println("no se pudo cargar los datos");
+                }
+                palabraAleatoria = gm.palabraAleatoria();
+                System.out.println(palabraAleatoria);
+
+                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
+                    ocultarFilas();
+                }
+            } else if (enjRadioButtonMenuItem.isSelected()) {
+                System.out.println("Ingles seleccionado");
+                intento = 1;
+                enviarjButton.setEnabled(true);
+                try {
+                    gm.cargarTextosIngles();
+                } catch (IOException ex) {
+                    System.out.println("no se pudo cargar los datos");
+                }
+                palabraAleatoria = gm.palabraAleatoria();
+                System.out.println(palabraAleatoria);
+
+                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
+                    ocultarFilas();
+                }
+
+            }
+        }
 
         palabrasjTextField.setEnabled(true);
-
-        if (esjRadioButtonMenuItem.isSelected()) {
-            System.out.println("Español seleccionado");
-            intento = 1;
-            enviarjButton.setEnabled(true);
-            try {
-                gm.cargarTextosEspanol();
-            } catch (IOException ex) {
-                System.out.println("no se pudo cargar los datos");
-            }
-            palabraAleatoria = gm.palabraAleatoria();
-            System.out.println(palabraAleatoria);
-
-            //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-            if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
-                ocultarFilas();
-            }
-        } else if (enjRadioButtonMenuItem.isSelected()) {
-            System.out.println("Ingles seleccionado");
-            intento = 1;
-            enviarjButton.setEnabled(true);
-            try {
-                gm.cargarTextosIngles();
-            } catch (IOException ex) {
-                System.out.println("no se pudo cargar los datos");
-            }
-            palabraAleatoria = gm.palabraAleatoria();
-            System.out.println(palabraAleatoria);
-
-            //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-            if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
-                ocultarFilas();
-            }
-
-        }
 
     }
 
@@ -630,10 +730,20 @@ public class MainGUI extends javax.swing.JFrame {
         motorbuttonGroup.add(archivojRadioButtonMenuItem);
         archivojRadioButtonMenuItem.setSelected(true);
         archivojRadioButtonMenuItem.setText("archivo de texto");
+        archivojRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                archivojRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
         MotoresjMenu.add(archivojRadioButtonMenuItem);
 
         motorbuttonGroup.add(baseDeDatosjRadioButtonMenuItem);
         baseDeDatosjRadioButtonMenuItem.setText("base de datos");
+        baseDeDatosjRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                baseDeDatosjRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
         MotoresjMenu.add(baseDeDatosjRadioButtonMenuItem);
 
         motorbuttonGroup.add(testjRadioButtonMenuItem);
@@ -690,7 +800,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_enjRadioButtonMenuItemActionPerformed
 
     private void enviarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarjButtonActionPerformed
-
+         errorjLabel.setText("");
         existeLetras(this.palabrasjTextField.getText().toUpperCase());
         //existeLetras(usuario");
     }//GEN-LAST:event_enviarjButtonActionPerformed
@@ -706,11 +816,19 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void ajustesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajustesjMenuItemActionPerformed
         MotorArchivo dialog = new MotorArchivo(this, true);
-        dialog.setVisible(true);  
+        dialog.setVisible(true);
         nuevaPartida();
     }//GEN-LAST:event_ajustesjMenuItemActionPerformed
 
-   
+    private void archivojRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivojRadioButtonMenuItemActionPerformed
+        nuevaPartida();
+
+    }//GEN-LAST:event_archivojRadioButtonMenuItemActionPerformed
+
+    private void baseDeDatosjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baseDeDatosjRadioButtonMenuItemActionPerformed
+        nuevaPartida();
+
+    }//GEN-LAST:event_baseDeDatosjRadioButtonMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

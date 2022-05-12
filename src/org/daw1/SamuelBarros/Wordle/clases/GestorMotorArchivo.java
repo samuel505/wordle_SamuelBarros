@@ -47,7 +47,7 @@ public class GestorMotorArchivo implements iMotor {
     }
 
     public boolean cargarTextosEspanol() throws IOException {
-
+        palabras.clear();
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(f));
@@ -81,7 +81,7 @@ public class GestorMotorArchivo implements iMotor {
     }
 
     public boolean cargarTextosIngles() throws IOException {
-
+        palabras.clear();
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(f2));
@@ -116,7 +116,7 @@ public class GestorMotorArchivo implements iMotor {
 
     @Override
     public boolean anadir(String palabra) {
-        if (!palabra.matches("[A-Za-z]{5}")&&existePalabra(palabra)) {
+        if (!palabra.matches("[A-Za-z]{5}") && existePalabra(palabra)) {
             return false;
         } else {
             if (!f.exists()) {

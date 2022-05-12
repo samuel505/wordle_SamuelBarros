@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -24,19 +25,19 @@ import java.util.logging.Logger;
  */
 public class GestorMotorBaseDeDatos implements iMotor {
 
+   
     private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
     private static final File f2 = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
     private final Set<String> palabras = new TreeSet<String>();
 
     public boolean existe() {
         return f.exists();
-
     }
-   
-    public boolean comprobarTexto(String p){
+
+    public boolean comprobarTexto(String p) {
         String texto = "";
         for (String palabra : palabras) {
-            texto +=palabra +" ";
+            texto += palabra + " ";
         }
         if (texto.contains(p)) {
             return true;
@@ -44,8 +45,8 @@ public class GestorMotorBaseDeDatos implements iMotor {
         return false;
     }
 
-    public boolean cargarTextosEspanol() throws IOException  {
-
+    public boolean cargarTextosEspanol() throws IOException {
+        palabras.clear();
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(f));
@@ -53,7 +54,7 @@ public class GestorMotorBaseDeDatos implements iMotor {
             System.out.println(ex);
             return false;
             //Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
         String texto = "";
         if (texto == null) {
@@ -61,28 +62,60 @@ public class GestorMotorBaseDeDatos implements iMotor {
         }
         while (texto != null) {
 
-           // System.out.println(texto);
+            // System.out.println(texto);
             try {
-                
+
                 texto = br.readLine();
-                if (texto!=null) {
-                    palabras.add(texto);
-                    
+                if (texto != null) {
+                    palabras.add(texto.toUpperCase());
                 }
             } catch (IOException ex) {
-                Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
-                
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         }
-        System.out.println(palabras);
+        //System.out.println(palabras);
         return true;
-        
+
     }
 
-    
+    public boolean cargarTextosIngles() throws IOException {
+        palabras.clear();
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(f2));
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+            return false;
+            //Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        String texto = "";
+        if (texto == null) {
+            return false;
+        }
+        while (texto != null) {
+
+            // System.out.println(texto);
+            try {
+
+                texto = br.readLine();
+                if (texto != null) {
+                    palabras.add(texto.toUpperCase());
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        }
+        //System.out.println(palabras);
+        return true;
+
+    }
+
     @Override
     public boolean anadir(String palabra) {
-        if (!palabra.matches("[A-Za-z]{5}")) {
+        if (!palabra.matches("[A-Za-z]{5}")&&existePalabra(palabra)) {
             return false;
         } else {
             if (!f.exists()) {
@@ -90,17 +123,17 @@ public class GestorMotorBaseDeDatos implements iMotor {
                 try {
                     f.createNewFile();
                 } catch (IOException ex) {
-                    Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
                 }
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));) {
-                bw.write(palabra);
+                bw.write(palabra.toUpperCase());
                 bw.newLine();
                 return true;
             } catch (IOException ex) {
-                Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
         }
@@ -108,20 +141,48 @@ public class GestorMotorBaseDeDatos implements iMotor {
     }
 
     @Override
-    public boolean borrar(String palabra) {
+    public boolean borrar(String p) {
+        try {
+            cargarTextosEspanol();
+        } catch (IOException ex) {
+            // Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("no se cargaron las palabras");
+            return false;
+        }
 
-        return false;
+        if (!palabras.contains(p)) {
+            return false;
+        }
+        System.out.println("antes de borrar" + palabras);
+        Iterator<String> it = palabras.iterator();
 
-    }
+        while (it.hasNext()) {
+            String next = it.next();
+            if (p.equals(next)) {
+                it.remove();
+            }
+        }
 
-    public void test() {
-        palabras.add("samuel");
-        palabras.add("lucas");
-        palabras.add("pedro");
-        palabras.add("juan");
-        palabras.add("pablo");
-        palabras.add("maria");
-        palabras.add("saray");
+        System.out.println("despues de borrar" + palabras);
+        Iterator<String> i = palabras.iterator();
+        while (it.hasNext()) {
+
+            if (!f.exists()) {
+                return false;
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
+                bw.write(i.next());
+                bw.newLine();
+
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+
+        }
+
+        return true;
     }
 
     @Override
@@ -133,14 +194,19 @@ public class GestorMotorBaseDeDatos implements iMotor {
 
         Object array[] = palabras.toArray();
         String palabra = (String) array[random];
-       // System.out.println(palabra);
+        // System.out.println(palabra);
         return palabra;
     }
 
     @Override
     public boolean existePalabra(String palabra) {
+        Iterator it = palabras.iterator();
+        String p = "";
+        while (it.hasNext()) {
+            p += it.next() + " ";
+        }
 
-        return false;
+        return p.contains(palabra);
 
     }
 
