@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="idiomabuttonGroup">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="MotorbuttonGroup">
+    <Component class="javax.swing.ButtonGroup" name="motorbuttonGroup">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menujMenuBar">
       <Properties>
@@ -31,6 +31,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="salir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirjMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -43,34 +46,34 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="ajustes"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="baseDeDatosjRadioButtonMenuItem">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="MotorbuttonGroup"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="base de datos"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajustesjMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="archivojRadioButtonMenuItem">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="MotorbuttonGroup"/>
+                  <ComponentRef name="motorbuttonGroup"/>
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="archivo"/>
+                <Property name="text" type="java.lang.String" value="archivo de texto"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="baseDeDatosjRadioButtonMenuItem">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="motorbuttonGroup"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="base de datos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="testjRadioButtonMenuItem">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="MotorbuttonGroup"/>
+                  <ComponentRef name="motorbuttonGroup"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="test"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testjRadioButtonMenuItemActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -132,7 +135,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="mainjPanel" alignment="0" pref="680" max="32767" attributes="0"/>
+          <Component id="mainjPanel" alignment="0" pref="943" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">

@@ -68,7 +68,41 @@ public class GestorMotorArchivo implements iMotor {
 
                 texto = br.readLine();
                 if (texto != null) {
-                    palabras.add(texto);
+                    palabras.add(texto.toUpperCase());
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        }
+        //System.out.println(palabras);
+        return true;
+
+    }
+
+    public boolean cargarTextosIngles() throws IOException {
+
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(f2));
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+            return false;
+            //Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        String texto = "";
+        if (texto == null) {
+            return false;
+        }
+        while (texto != null) {
+
+            // System.out.println(texto);
+            try {
+
+                texto = br.readLine();
+                if (texto != null) {
+                    palabras.add(texto.toUpperCase());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +116,7 @@ public class GestorMotorArchivo implements iMotor {
 
     @Override
     public boolean anadir(String palabra) {
-        if (!palabra.matches("[A-Za-z]{5}")) {
+        if (!palabra.matches("[A-Za-z]{5}")&&existePalabra(palabra)) {
             return false;
         } else {
             if (!f.exists()) {
@@ -96,7 +130,7 @@ public class GestorMotorArchivo implements iMotor {
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));) {
-                bw.write(palabra);
+                bw.write(palabra.toUpperCase());
                 bw.newLine();
                 return true;
             } catch (IOException ex) {
@@ -120,43 +154,35 @@ public class GestorMotorArchivo implements iMotor {
         if (!palabras.contains(p)) {
             return false;
         }
-System.out.println("antes de borrar"+palabras);
- Iterator<String> it = palabras.iterator();
-        do {
-          String next = it.next();
+        System.out.println("antes de borrar" + palabras);
+        Iterator<String> it = palabras.iterator();
+
+        while (it.hasNext()) {
+            String next = it.next();
             if (p.equals(next)) {
                 it.remove();
             }
-        } while (it.hasNext());
-        
-            
-       
+        }
 
-        
-        System.out.println("despues de borrar"+palabras);
-        Iterator<String> i= palabras.iterator();
-        do {
+        System.out.println("despues de borrar" + palabras);
+        Iterator<String> i = palabras.iterator();
+        while (it.hasNext()) {
+
             if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                try {
-                    f.createNewFile();
-                } catch (IOException ex) {
-                    Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
-                    return false;
-                }
+                return false;
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
                 bw.write(i.next());
                 bw.newLine();
-                System.out.println(i.toString());
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
-        } while (i.hasNext());
-        System.out.println("despues de guardar en el archivo "+ palabras);
+
+        }
+
         return true;
     }
 
@@ -175,8 +201,13 @@ System.out.println("antes de borrar"+palabras);
 
     @Override
     public boolean existePalabra(String palabra) {
+        Iterator it = palabras.iterator();
+        String p = "";
+        while (it.hasNext()) {
+            p += it.next() + " ";
+        }
 
-        return false;
+        return p.contains(palabra);
 
     }
 

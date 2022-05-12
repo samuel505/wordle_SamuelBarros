@@ -23,7 +23,7 @@ public class MotorTest implements iMotor{
 
     @Override
     public String palabraAleatoria() {
-        return "ABCDE";
+        return "CICLO";
     }
 
     @Override
