@@ -11,6 +11,7 @@ import org.daw1.SamuelBarros.Wordle.clases.GestorMotorArchivo;
  *
  * @author samuel505
  */
+
 public class MotorArchivo extends javax.swing.JDialog {
 GestorMotorArchivo g = new GestorMotorArchivo();
     /**
