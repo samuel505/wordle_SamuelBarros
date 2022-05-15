@@ -4,7 +4,6 @@
  */
 package org.daw1.SamuelBarros.Wordle.clases;
 
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -29,7 +27,7 @@ public class GestorMotorArchivo implements iMotor {
 
     private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
     private static final File f2 = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
-    private final Set<String> palabras = new TreeSet<String>();
+    private final Set<String> palabras = new TreeSet<>();
 
     public boolean existe() {
         return f.exists();
@@ -46,6 +44,7 @@ public class GestorMotorArchivo implements iMotor {
         return false;
     }
 
+    @Override
     public boolean cargarTextosEspanol() throws IOException {
         palabras.clear();
         BufferedReader br = null;
@@ -80,6 +79,7 @@ public class GestorMotorArchivo implements iMotor {
 
     }
 
+    @Override
     public boolean cargarTextosIngles() throws IOException {
         palabras.clear();
         BufferedReader br = null;
@@ -210,5 +210,12 @@ public class GestorMotorArchivo implements iMotor {
         return p.contains(palabra);
 
     }
+
+    @Override
+    public String toString() {
+        return "motorArchivo";
+    }
+    
+    
 
 }
