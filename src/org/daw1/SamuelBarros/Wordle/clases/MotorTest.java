@@ -33,14 +33,10 @@ public class MotorTest implements iMotor {
     }
 
     @Override
-    public boolean cargarTextosIngles() throws IOException {
+    public boolean cargarTextos() throws IOException {
         return true;
 
     }
 
-    @Override
-    public boolean cargarTextosEspanol() throws IOException {
-        return true;
-    }
 
 }

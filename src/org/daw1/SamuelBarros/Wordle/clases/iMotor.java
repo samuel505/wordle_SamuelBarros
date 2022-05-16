@@ -15,8 +15,7 @@ public interface iMotor {
     public boolean borrar(String palabra);
     public String palabraAleatoria();
     public boolean existePalabra(String palabra);
-    public boolean cargarTextosIngles()throws IOException;
-    public boolean cargarTextosEspanol()throws IOException;
+    public boolean cargarTextos()throws IOException;
     
     
 }

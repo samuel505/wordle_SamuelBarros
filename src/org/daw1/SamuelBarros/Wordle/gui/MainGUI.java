@@ -23,11 +23,11 @@ import org.daw1.SamuelBarros.Wordle.clases.iMotor;
  */
 public class MainGUI extends javax.swing.JFrame {
 
-  private  String palabraAleatoria = "";
-   private iMotor gm = null;
+    protected static String idioma = "idioma";
 
-   
-    
+    protected static String tipoMotor = "motor";
+    private String palabraAleatoria = "";
+    private iMotor gm = null;
 
     private static final Color COLOR_ROJO = new Color(255, 0, 0);
     private static final Color COLOR_AMARILLO = new Color(255, 255, 0);
@@ -38,25 +38,20 @@ public class MainGUI extends javax.swing.JFrame {
 
     private final JLabel labels[][] = new JLabel[MAX_INTENTOS][TAMANHO_PALABRA];
 
-  
-
-    
     protected iMotor selectMotor() {
         iMotor g = null;
         if (this.archivojRadioButtonMenuItem.isSelected()) {
-            g = new GestorMotorArchivo();
-            System.out.println("Motor archivo");
-            
-            
+            g = new GestorMotorArchivo(idioma);
+           // System.out.println("Motor archivo");
+
         } else if (this.baseDeDatosjRadioButtonMenuItem.isSelected()) {
-            g = new GestorMotorBaseDeDatos();
-            System.out.println("Motor base de datos");
-            
-            
-        }else if(this.testjRadioButtonMenuItem.isSelected()){
+            g = new GestorMotorBaseDeDatos(idioma);
+           // System.out.println("Motor base de datos");
+
+        } else if (this.testjRadioButtonMenuItem.isSelected()) {
             g = new MotorTest();
-            System.out.println("Motor test");
-            
+            //System.out.println("Motor test");
+
         }
 
         return g;
@@ -237,9 +232,9 @@ public class MainGUI extends javax.swing.JFrame {
 
     public MainGUI() {
         try {
-            
+
             IniciarPartida();
-             gm = selectMotor();
+            gm = selectMotor();
             palabrasjTextField.setEnabled(false);
             enviarjButton.setEnabled(false);
             //testFilas();
@@ -251,19 +246,43 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
+    protected void tipoMotor() {
+        if (baseDeDatosjRadioButtonMenuItem.isSelected()) {
+            tipoMotor = "base";
+
+        } else if (archivojRadioButtonMenuItem.isSelected()) {
+            tipoMotor = "archivo";
+        } else if (testjRadioButtonMenuItem.isSelected()) {
+            tipoMotor = "test";
+        }
+
+    }
+
+    protected void idioma() {
+        if (esjRadioButtonMenuItem.isSelected()) {
+            idioma = "es";
+
+        } else if (enjRadioButtonMenuItem.isSelected()) {
+            idioma = "en";
+        }
+
+    }
+
     private void nuevaPartida() {
-         gm = selectMotor();
+        gm = selectMotor();
+        tipoMotor();
         bienjLabel.setText("");
         existenjLabel.setText("");
         maljLabel.setText("");
         if (archivojRadioButtonMenuItem.isSelected()) {
-
+            idioma();
+            System.out.println(idioma);
             if (esjRadioButtonMenuItem.isSelected()) {
                 System.out.println("Español seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextosEspanol();
+                    gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
@@ -279,7 +298,7 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextosIngles();
+                    gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
@@ -293,6 +312,7 @@ public class MainGUI extends javax.swing.JFrame {
                 }
 
             }
+            
         } else if (baseDeDatosjRadioButtonMenuItem.isSelected()) {
 
             if (esjRadioButtonMenuItem.isSelected()) {
@@ -300,7 +320,7 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextosEspanol();
+                    gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
@@ -316,7 +336,7 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextosIngles();
+                    gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
@@ -336,7 +356,7 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextosEspanol();
+                    gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
@@ -352,7 +372,7 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextosIngles();
+                    gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
@@ -849,6 +869,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_salirjMenuItemActionPerformed
 
     private void ajustesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajustesjMenuItemActionPerformed
+        nuevaPartida();
         MotorGUI dialog = new MotorGUI(this, true);
         dialog.setVisible(true);
         nuevaPartida();

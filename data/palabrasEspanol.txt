@@ -2,4 +2,6 @@ samue
 manue
 lucas
 pedro
-pabloA
+pablo
+saray
+manol

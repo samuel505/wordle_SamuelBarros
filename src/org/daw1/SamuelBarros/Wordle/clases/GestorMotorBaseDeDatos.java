@@ -26,14 +26,28 @@ import java.util.logging.Logger;
 public class GestorMotorBaseDeDatos implements iMotor {
 
    
-    private static final File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
-    private static final File f2 = new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
-    private final Set<String> palabras = new TreeSet<String>();
+    private static  File f = null;
+    private final Set<String> palabras = new TreeSet<>();
 
+    public GestorMotorBaseDeDatos(String idioma) {
+        comprobarIdioma(idioma);
+    }
+
+    
     public boolean existe() {
         return f.exists();
     }
 
+    private void comprobarIdioma(String idioma){
+        idioma = "es";
+        if (idioma.equals("es")) {
+            f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
+        }else{
+            f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
+        }
+        
+    }
+    
     public boolean comprobarTexto(String p) {
         String texto = "";
         for (String palabra : palabras) {
@@ -45,7 +59,8 @@ public class GestorMotorBaseDeDatos implements iMotor {
         return false;
     }
 
-    public boolean cargarTextosEspanol() throws IOException {
+    @Override
+    public boolean cargarTextos() throws IOException {
         palabras.clear();
         BufferedReader br = null;
         try {
@@ -79,43 +94,17 @@ public class GestorMotorBaseDeDatos implements iMotor {
 
     }
 
-    public boolean cargarTextosIngles() throws IOException {
-        palabras.clear();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(f2));
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex);
-            return false;
-            //Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-        String texto = "";
-        if (texto == null) {
-            return false;
-        }
-        while (texto != null) {
-
-            // System.out.println(texto);
-            try {
-
-                texto = br.readLine();
-                if (texto != null) {
-                    palabras.add(texto.toUpperCase());
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-        }
-        //System.out.println(palabras);
-        return true;
-
-    }
-
+    
     @Override
     public boolean anadir(String palabra) {
-        if (!palabra.matches("[A-Za-z]{5}")&&existePalabra(palabra)) {
+        try {
+            cargarTextos();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        if (!palabra.matches("[A-Za-z]{5}") || existePalabra(palabra)) {
             return false;
         } else {
             if (!f.exists()) {
@@ -129,8 +118,11 @@ public class GestorMotorBaseDeDatos implements iMotor {
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));) {
-                bw.write(palabra.toUpperCase());
-                bw.newLine();
+                if (palabras.contains(palabra.toLowerCase())) {
+                    return false;
+                }
+                bw.append(palabra.toLowerCase()+"\n");
+               
                 return true;
             } catch (IOException ex) {
                 Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,7 +135,7 @@ public class GestorMotorBaseDeDatos implements iMotor {
     @Override
     public boolean borrar(String p) {
         try {
-            cargarTextosEspanol();
+            cargarTextos();
         } catch (IOException ex) {
             // Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("no se cargaron las palabras");
@@ -153,7 +145,7 @@ public class GestorMotorBaseDeDatos implements iMotor {
         if (!palabras.contains(p)) {
             return false;
         }
-        System.out.println("antes de borrar" + palabras);
+        System.out.println("antes de borrar " + palabras);
         Iterator<String> it = palabras.iterator();
 
         while (it.hasNext()) {
@@ -210,8 +202,11 @@ public class GestorMotorBaseDeDatos implements iMotor {
 
     }
 
-     @Override
+    @Override
     public String toString() {
-        return "motorBaseDeDatos";
+        return "motorArchivo";
     }
+    
+    
+
 }

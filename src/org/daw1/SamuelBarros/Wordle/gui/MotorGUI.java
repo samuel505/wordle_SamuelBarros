@@ -5,7 +5,7 @@
 package org.daw1.SamuelBarros.Wordle.gui;
 
 import java.awt.Color;
-import org.daw1.SamuelBarros.Wordle.clases.iMotor;
+import org.daw1.SamuelBarros.Wordle.clases.*;
 
 /**
  *
@@ -14,6 +14,7 @@ import org.daw1.SamuelBarros.Wordle.clases.iMotor;
 public class MotorGUI extends javax.swing.JDialog {
 
     iMotor g = null;
+    String idioma = MainGUI.idioma;
 
     /**
      * Creates new form Motor
@@ -22,6 +23,24 @@ public class MotorGUI extends javax.swing.JDialog {
 
         super(parent, modal);
         initComponents();
+        if (MainGUI.tipoMotor.equals("archivo")) {
+            g = new GestorMotorArchivo(idioma);
+
+            System.out.println(idioma);
+
+        } else if (MainGUI.tipoMotor.equals("base")) {
+            System.out.println(idioma);
+            System.out.println(MainGUI.tipoMotor);
+
+            g = new GestorMotorBaseDeDatos(idioma);
+            System.out.println(MainGUI.tipoMotor);
+
+        } else if (MainGUI.tipoMotor.equals("test")) {
+            System.out.println(idioma);
+            System.out.println(MainGUI.tipoMotor);
+            g = new MotorTest();
+
+        }
 
     }
 
@@ -145,18 +164,30 @@ public class MotorGUI extends javax.swing.JDialog {
     private void anadirjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirjTextFieldActionPerformed
 
     }//GEN-LAST:event_anadirjTextFieldActionPerformed
-
+    private String texto = "";
     private void anadirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirjButtonActionPerformed
-        if (!this.anadirjTextField.getText().matches("[A-Za-z]{5}")) {
-            this.estadoInsertarjLabel.setText("el texto tiene que ser de una longitid exacta de 5 letras");
-        } else if (!this.anadirjTextField.getText().equals("") || !this.anadirjTextField.getText().equals(" +")) {
-            if (g.anadir(this.anadirjTextField.getText())) {
+        texto = anadirjTextField.getText().toUpperCase();
+         if (g.existePalabra(texto)) {
+            this.estadoInsertarjLabel.setText("la palabra ya existe");
+        }
+         
+        if (this.texto.matches("[A-Za-z]{5}")) {
+
+            if (g.anadir(texto)) {
                 this.estadoInsertarjLabel.setText("añadido");
                 this.estadoInsertarjLabel.setForeground(Color.green);
+            }else{
+                 this.estadoInsertarjLabel.setText("La palabra ya existe");
+             this.estadoInsertarjLabel.setForeground(Color.red);
             }
-        } else if (g.existePalabra(anadirjTextField.getText())) {
-            this.estadoInsertarjLabel.setText("la palabar ya existe");
+            
+        } else {
+            this.estadoInsertarjLabel.setText("el texto tiene que ser de una longitid exacta de 5 letras");
+             this.estadoInsertarjLabel.setForeground(Color.red);
+            
         }
+
+
     }//GEN-LAST:event_anadirjButtonActionPerformed
 
     private void borrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarjButtonActionPerformed
