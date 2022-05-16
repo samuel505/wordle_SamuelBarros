@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import org.daw1.SamuelBarros.Wordle.clases.GestorMotorArchivo;
 import org.daw1.SamuelBarros.Wordle.clases.GestorMotorBaseDeDatos;
+import org.daw1.SamuelBarros.Wordle.clases.MotorTest;
+import org.daw1.SamuelBarros.Wordle.clases.iMotor;
 
 /**
  *
@@ -21,9 +23,11 @@ import org.daw1.SamuelBarros.Wordle.clases.GestorMotorBaseDeDatos;
  */
 public class MainGUI extends javax.swing.JFrame {
 
-    String palabraAleatoria = "";
-    GestorMotorArchivo gm = new GestorMotorArchivo();
-    GestorMotorBaseDeDatos gm2 = new GestorMotorBaseDeDatos();
+  private  String palabraAleatoria = "";
+   private iMotor gm = null;
+
+   
+    
 
     private static final Color COLOR_ROJO = new Color(255, 0, 0);
     private static final Color COLOR_AMARILLO = new Color(255, 255, 0);
@@ -34,7 +38,31 @@ public class MainGUI extends javax.swing.JFrame {
 
     private final JLabel labels[][] = new JLabel[MAX_INTENTOS][TAMANHO_PALABRA];
 
-    public void testFilas() {
+  
+
+    
+    protected iMotor selectMotor() {
+        iMotor g = null;
+        if (this.archivojRadioButtonMenuItem.isSelected()) {
+            g = new GestorMotorArchivo();
+            System.out.println("Motor archivo");
+            
+            
+        } else if (this.baseDeDatosjRadioButtonMenuItem.isSelected()) {
+            g = new GestorMotorBaseDeDatos();
+            System.out.println("Motor base de datos");
+            
+            
+        }else if(this.testjRadioButtonMenuItem.isSelected()){
+            g = new MotorTest();
+            System.out.println("Motor test");
+            
+        }
+
+        return g;
+    }
+
+    private void testFilas() {
 
         for (int i = 0; i < labels.length; i++) {
             JLabel[] label = labels[i];
@@ -47,7 +75,7 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
-    public void ocultarFilas() {
+    private void ocultarFilas() {
         finaljLabel.setVisible(false);
         for (int i = 0; i < labels.length; i++) {
             JLabel[] label = labels[i];
@@ -58,7 +86,7 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
-    public void testCambiarLetra(int fila, int letra) {
+    private void testCambiarLetra(int fila, int letra) {
 
         JLabel[] label = labels[fila];
         for (int j = 0; j < label.length; j++) {
@@ -69,7 +97,7 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
-    public void testCambiarPalabra(int fila, char[] p) {
+    private void testCambiarPalabra(int fila, char[] p) {
 
         JLabel[] label = labels[fila];
         for (int j = 0; j < label.length; j++) {
@@ -79,7 +107,7 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }
 
-    public final void IniciarLabels() {
+    private final void IniciarLabels() {
         for (int i = 1; i <= MAX_INTENTOS; i++) {
             for (int j = 1; j <= TAMANHO_PALABRA; j++) {
                 try {
@@ -102,7 +130,7 @@ public class MainGUI extends javax.swing.JFrame {
     Set<String> letrasA = new TreeSet<>();
     Set<String> letrasR = new TreeSet<>();
 
-    public void existeLetras(String p) {
+    private void existeLetras(String p) {
         //p="pablo";
         //String a ="samue";
 
@@ -198,7 +226,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     }
 
-    public final void IniciarPartida() throws IOException {
+    private final void IniciarPartida() throws IOException {
         intento = 1;
         initComponents();
         IniciarLabels();
@@ -209,8 +237,9 @@ public class MainGUI extends javax.swing.JFrame {
 
     public MainGUI() {
         try {
+            
             IniciarPartida();
-
+             gm = selectMotor();
             palabrasjTextField.setEnabled(false);
             enviarjButton.setEnabled(false);
             //testFilas();
@@ -223,6 +252,7 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     private void nuevaPartida() {
+         gm = selectMotor();
         bienjLabel.setText("");
         existenjLabel.setText("");
         maljLabel.setText("");
@@ -270,11 +300,11 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm2.cargarTextosEspanol();
+                    gm.cargarTextosEspanol();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
-                palabraAleatoria = gm2.palabraAleatoria();
+                palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
@@ -286,11 +316,11 @@ public class MainGUI extends javax.swing.JFrame {
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
-                    gm2.cargarTextosIngles();
+                    gm.cargarTextosIngles();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos");
                 }
-                palabraAleatoria = gm2.palabraAleatoria();
+                palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
@@ -695,7 +725,6 @@ public class MainGUI extends javax.swing.JFrame {
         mainjPanel.add(bottomjPanel, java.awt.BorderLayout.PAGE_END);
 
         menujMenuBar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        menujMenuBar.setOpaque(false);
 
         ArchivojMenu.setText("Archivo");
 
@@ -748,6 +777,11 @@ public class MainGUI extends javax.swing.JFrame {
 
         motorbuttonGroup.add(testjRadioButtonMenuItem);
         testjRadioButtonMenuItem.setText("test");
+        testjRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testjRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
         MotoresjMenu.add(testjRadioButtonMenuItem);
 
         menujMenuBar.add(MotoresjMenu);
@@ -800,7 +834,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_enjRadioButtonMenuItemActionPerformed
 
     private void enviarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarjButtonActionPerformed
-         errorjLabel.setText("");
+        errorjLabel.setText("");
         existeLetras(this.palabrasjTextField.getText().toUpperCase());
         //existeLetras(usuario");
     }//GEN-LAST:event_enviarjButtonActionPerformed
@@ -815,7 +849,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_salirjMenuItemActionPerformed
 
     private void ajustesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajustesjMenuItemActionPerformed
-        MotorArchivo dialog = new MotorArchivo(this, true);
+        MotorGUI dialog = new MotorGUI(this, true);
         dialog.setVisible(true);
         nuevaPartida();
     }//GEN-LAST:event_ajustesjMenuItemActionPerformed
@@ -829,6 +863,10 @@ public class MainGUI extends javax.swing.JFrame {
         nuevaPartida();
 
     }//GEN-LAST:event_baseDeDatosjRadioButtonMenuItemActionPerformed
+
+    private void testjRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testjRadioButtonMenuItemActionPerformed
+        nuevaPartida();
+    }//GEN-LAST:event_testjRadioButtonMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

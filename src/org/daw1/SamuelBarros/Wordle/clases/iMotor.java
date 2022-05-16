@@ -4,6 +4,8 @@
  */
 package org.daw1.SamuelBarros.Wordle.clases;
 
+import java.io.IOException;
+
 /**
  *
  * @author samuel505
@@ -13,5 +15,8 @@ public interface iMotor {
     public boolean borrar(String palabra);
     public String palabraAleatoria();
     public boolean existePalabra(String palabra);
+    public boolean cargarTextosIngles()throws IOException;
+    public boolean cargarTextosEspanol()throws IOException;
+    
     
 }

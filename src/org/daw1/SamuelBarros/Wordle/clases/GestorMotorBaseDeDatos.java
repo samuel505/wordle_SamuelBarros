@@ -210,4 +210,8 @@ public class GestorMotorBaseDeDatos implements iMotor {
 
     }
 
+     @Override
+    public String toString() {
+        return "motorBaseDeDatos";
+    }
 }
