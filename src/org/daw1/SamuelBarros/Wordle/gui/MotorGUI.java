@@ -205,12 +205,12 @@ public class MotorGUI extends javax.swing.JDialog {
             if (g.borrar(this.borrarjTextField.getText())) {
                 this.estadoBorrarjLabel.setText("Palabra borrada");
                 this.estadoBorrarjLabel.setForeground(Color.green);
-            } else {
+            } 
+
+        }else {
                 this.estadoBorrarjLabel.setText("La palabra no existe");
                 this.estadoBorrarjLabel.setForeground(Color.red);
             }
-
-        }
     }//GEN-LAST:event_borrarjButtonActionPerformed
 
     public static void main(String args[]) {
