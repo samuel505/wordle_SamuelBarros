@@ -133,6 +133,7 @@ public class GestorMotorArchivo implements iMotor {
 
     @Override
     public boolean borrar(String p) {
+        p=p.toUpperCase();
         try {
             cargarTextos();
         } catch (IOException ex) {
@@ -141,10 +142,10 @@ public class GestorMotorArchivo implements iMotor {
             return false;
         }
 
-        if (!palabras.contains(p)) {
+        if (!palabras.contains(p.toUpperCase())) {
             return false;
         }
-        System.out.println("antes de borrar " + palabras);
+        //System.out.println("antes de borrar " + palabras);
         Iterator<String> it = palabras.iterator();
 
         while (it.hasNext()) {
@@ -154,26 +155,58 @@ public class GestorMotorArchivo implements iMotor {
             }
         }
 
-        System.out.println("despues de borrar" + palabras);
-        Iterator<String> i = palabras.iterator();
-        while (it.hasNext()) {
-
-            if (!f.exists()) {
-                return false;
+        //System.out.println("despues de borrar" + palabras);
+        
+        
+        String palabra = "";
+        
+        for (String palabra1 : palabras) {
+            palabra+=palabra1+"\n";
+        }
+        
+        
+        
+        if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                try {
+                    f.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
-                bw.write(i.next());
-                bw.newLine();
-
+               
+                bw.append(palabra.toLowerCase());
+               
+                return true;
             } catch (IOException ex) {
                 Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
+        
+        
 
-        }
-
-        return true;
+        
+//        Iterator<String> i = palabras.iterator();
+//        while (it.hasNext()) {
+//
+//            if (!f.exists()) {
+//                return false;
+//            }
+//
+//            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
+//                bw.write(i.next());
+//                bw.newLine();
+//
+//            } catch (IOException ex) {
+//                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+//                return false;
+//            }
+//
+//        }
+        
     }
 
     @Override
