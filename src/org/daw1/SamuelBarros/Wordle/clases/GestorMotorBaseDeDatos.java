@@ -25,8 +25,9 @@ import java.util.logging.Logger;
  */
 public class GestorMotorBaseDeDatos implements iMotor {
 
+    
    
-    private static  File f = null;
+    private static  File f = f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");;
     private final Set<String> palabras = new TreeSet<>();
 
     public GestorMotorBaseDeDatos(String idioma) {
@@ -34,16 +35,16 @@ public class GestorMotorBaseDeDatos implements iMotor {
     }
 
     
-    public boolean existe() {
+        public boolean existe() {
         return f.exists();
     }
 
     private void comprobarIdioma(String idioma){
-        idioma = "es";
+        
         if (idioma.equals("es")) {
             f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
-        }else{
-            f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
+        }else if (idioma.equals("gl")){
+            f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasGalego.txt");
         }
         
     }
@@ -134,6 +135,7 @@ public class GestorMotorBaseDeDatos implements iMotor {
 
     @Override
     public boolean borrar(String p) {
+        p=p.toUpperCase();
         try {
             cargarTextos();
         } catch (IOException ex) {
@@ -142,10 +144,10 @@ public class GestorMotorBaseDeDatos implements iMotor {
             return false;
         }
 
-        if (!palabras.contains(p)) {
+        if (!palabras.contains(p.toUpperCase())) {
             return false;
         }
-        System.out.println("antes de borrar " + palabras);
+        //System.out.println("antes de borrar " + palabras);
         Iterator<String> it = palabras.iterator();
 
         while (it.hasNext()) {
@@ -155,31 +157,65 @@ public class GestorMotorBaseDeDatos implements iMotor {
             }
         }
 
-        System.out.println("despues de borrar" + palabras);
-        Iterator<String> i = palabras.iterator();
-        while (it.hasNext()) {
-
-            if (!f.exists()) {
-                return false;
+        //System.out.println("despues de borrar" + palabras);
+        
+        
+        String palabra = "";
+        
+        for (String palabra1 : palabras) {
+            palabra+=palabra1+"\n";
+        }
+        
+        
+        
+        if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                try {
+                    f.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
             }
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
-                bw.write(i.next());
-                bw.newLine();
-
+               
+                bw.append(palabra.toLowerCase());
+               
+                return true;
             } catch (IOException ex) {
                 Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
+        
+        
 
-        }
-
-        return true;
+        
+//        Iterator<String> i = palabras.iterator();
+//        while (it.hasNext()) {
+//
+//            if (!f.exists()) {
+//                return false;
+//            }
+//
+//            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
+//                bw.write(i.next());
+//                bw.newLine();
+//
+//            } catch (IOException ex) {
+//                Logger.getLogger(GestorMotorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+//                return false;
+//            }
+//
+//        }
+        
     }
 
     @Override
     public String palabraAleatoria() {
-
+        if (palabras.isEmpty()) {
+            return null;
+        }
         Random rm = new Random();
         int random = rm.nextInt(palabras.size());
         String texto = "";

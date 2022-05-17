@@ -102,15 +102,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="esjRadioButtonMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="enjRadioButtonMenuItem">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="gljRadioButtonMenuItem">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="idiomabuttonGroup"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ingles"/>
+                <Property name="text" type="java.lang.String" value="Galego"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enjRadioButtonMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gljRadioButtonMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

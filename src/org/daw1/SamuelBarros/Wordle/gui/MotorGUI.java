@@ -5,6 +5,9 @@
 package org.daw1.SamuelBarros.Wordle.gui;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.daw1.SamuelBarros.Wordle.clases.*;
 
 /**
@@ -23,23 +26,26 @@ public class MotorGUI extends javax.swing.JDialog {
 
         super(parent, modal);
         initComponents();
+        String tipoMotor = MainGUI.tipoMotor;
+        tipoMotorjLabel.setText("");
+        
         if (MainGUI.tipoMotor.equals("archivo")) {
             g = new GestorMotorArchivo(idioma);
-
-            System.out.println(idioma);
-
+//            System.out.println(idioma);
+            tipoMotorjLabel.setText(tipoMotor + " idioma: " + idioma);
+            
         } else if (MainGUI.tipoMotor.equals("base")) {
-            System.out.println(idioma);
-            System.out.println(MainGUI.tipoMotor);
-
+//            System.out.println(idioma);
+//            System.out.println(MainGUI.tipoMotor);
             g = new GestorMotorBaseDeDatos(idioma);
-            System.out.println(MainGUI.tipoMotor);
+            tipoMotorjLabel.setText(tipoMotor + " idioma: " + idioma);
+            //System.out.println(MainGUI.tipoMotor);
 
         } else if (MainGUI.tipoMotor.equals("test")) {
-            System.out.println(idioma);
-            System.out.println(MainGUI.tipoMotor);
+//            System.out.println(idioma);
+//            System.out.println(MainGUI.tipoMotor);
             g = new MotorTest();
-
+           tipoMotorjLabel.setText("Tipo de motor: "+tipoMotor + " idioma: " + idioma);
         }
 
     }
@@ -70,6 +76,7 @@ public class MotorGUI extends javax.swing.JDialog {
         estadoBorradojPanel = new javax.swing.JPanel();
         estadoBorrarjLabel = new javax.swing.JLabel();
         motorjLabel = new javax.swing.JLabel();
+        tipoMotorjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,6 +147,7 @@ public class MotorGUI extends javax.swing.JDialog {
         estadoBorrarjLabel.setText("  ");
         estadoBorradojPanel.add(estadoBorrarjLabel, new java.awt.GridBagConstraints());
         estadoBorradojPanel.add(motorjLabel, new java.awt.GridBagConstraints());
+        estadoBorradojPanel.add(tipoMotorjLabel, new java.awt.GridBagConstraints());
 
         borrarjPanel.add(estadoBorradojPanel);
 
@@ -167,32 +175,30 @@ public class MotorGUI extends javax.swing.JDialog {
     private String texto = "";
     private void anadirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirjButtonActionPerformed
         texto = anadirjTextField.getText().toUpperCase();
-         if (g.existePalabra(texto)) {
-            this.estadoInsertarjLabel.setText("la palabra ya existe");
-        }
-         
-        if (this.texto.matches("[A-Za-z]{5}")) {
+       
 
+        if (this.texto.matches("[A-Za-z]{5}")) {
+            
             if (g.anadir(texto)) {
                 this.estadoInsertarjLabel.setText("añadido");
                 this.estadoInsertarjLabel.setForeground(Color.green);
-            }else{
-                 this.estadoInsertarjLabel.setText("La palabra ya existe");
-             this.estadoInsertarjLabel.setForeground(Color.red);
+            } else {
+                this.estadoInsertarjLabel.setText("La palabra ya existe");
+                this.estadoInsertarjLabel.setForeground(Color.red);
             }
-            
+
         } else {
             this.estadoInsertarjLabel.setText("el texto tiene que ser de una longitid exacta de 5 letras");
-             this.estadoInsertarjLabel.setForeground(Color.red);
-            
+            this.estadoInsertarjLabel.setForeground(Color.red);
+
         }
 
 
     }//GEN-LAST:event_anadirjButtonActionPerformed
 
     private void borrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarjButtonActionPerformed
-
-        if (!g.existePalabra(this.borrarjTextField.getText())) {
+       this.estadoBorrarjLabel.setText("");
+        if (g.existePalabra(this.borrarjTextField.getText())) {
             if (g.borrar(this.borrarjTextField.getText())) {
                 this.estadoBorrarjLabel.setText("Palabra borrada");
                 this.estadoBorrarjLabel.setForeground(Color.green);
@@ -267,6 +273,7 @@ public class MotorGUI extends javax.swing.JDialog {
     private javax.swing.JPanel insertarjPanel;
     private javax.swing.JPanel mainjPanel;
     private javax.swing.JLabel motorjLabel;
+    private javax.swing.JLabel tipoMotorjLabel;
     private javax.swing.JLabel titulojLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,6 +19,7 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author samuel505
@@ -38,11 +39,11 @@ public class GestorMotorArchivo implements iMotor {
     }
 
     private void comprobarIdioma(String idioma){
-        idioma = "es";
+        
         if (idioma.equals("es")) {
             f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
-        }else{
-            f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasIngles.txt");
+        }else if (idioma.equals("gl")){
+            f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasGalego.txt");
         }
         
     }
@@ -211,7 +212,9 @@ public class GestorMotorArchivo implements iMotor {
 
     @Override
     public String palabraAleatoria() {
-
+        if (palabras.isEmpty()) {
+            return null;
+        }
         Random rm = new Random();
         int random = rm.nextInt(palabras.size());
         String texto = "";
@@ -224,6 +227,12 @@ public class GestorMotorArchivo implements iMotor {
 
     @Override
     public boolean existePalabra(String palabra) {
+        palabra = palabra.toUpperCase();
+         try {
+            cargarTextos();
+        } catch (IOException ex) {
+             System.out.println(ex);
+        }
         Iterator it = palabras.iterator();
         String p = "";
         while (it.hasNext()) {
