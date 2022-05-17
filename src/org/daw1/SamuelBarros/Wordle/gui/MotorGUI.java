@@ -27,25 +27,25 @@ public class MotorGUI extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         String tipoMotor = MainGUI.tipoMotor;
-        tipoMotorjLabel.setText("");
+        motorjLabel.setText("");
         
         if (MainGUI.tipoMotor.equals("archivo")) {
             g = new GestorMotorArchivo(idioma);
 //            System.out.println(idioma);
-            tipoMotorjLabel.setText(tipoMotor + " idioma: " + idioma);
+            motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
             
         } else if (MainGUI.tipoMotor.equals("base")) {
 //            System.out.println(idioma);
 //            System.out.println(MainGUI.tipoMotor);
             g = new GestorMotorBaseDeDatos(idioma);
-            tipoMotorjLabel.setText(tipoMotor + " idioma: " + idioma);
+            motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
             //System.out.println(MainGUI.tipoMotor);
 
         } else if (MainGUI.tipoMotor.equals("test")) {
 //            System.out.println(idioma);
 //            System.out.println(MainGUI.tipoMotor);
             g = new MotorTest();
-           tipoMotorjLabel.setText("Tipo de motor: "+tipoMotor + " idioma: " + idioma);
+           motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
         }
 
     }
@@ -75,8 +75,8 @@ public class MotorGUI extends javax.swing.JDialog {
         borrarjButton = new javax.swing.JButton();
         estadoBorradojPanel = new javax.swing.JPanel();
         estadoBorrarjLabel = new javax.swing.JLabel();
+        tipoMotorjPanel = new javax.swing.JPanel();
         motorjLabel = new javax.swing.JLabel();
-        tipoMotorjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,7 +125,7 @@ public class MotorGUI extends javax.swing.JDialog {
         cuerpojPanel.add(anadirjPanel);
 
         borrarjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        borrarjPanel.setLayout(new java.awt.GridLayout(2, 1));
+        borrarjPanel.setLayout(new java.awt.GridLayout(3, 1));
 
         borrarjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
         borradojPanel.add(borrarjTextField);
@@ -146,10 +146,13 @@ public class MotorGUI extends javax.swing.JDialog {
         estadoBorrarjLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         estadoBorrarjLabel.setText("  ");
         estadoBorradojPanel.add(estadoBorrarjLabel, new java.awt.GridBagConstraints());
-        estadoBorradojPanel.add(motorjLabel, new java.awt.GridBagConstraints());
-        estadoBorradojPanel.add(tipoMotorjLabel, new java.awt.GridBagConstraints());
 
         borrarjPanel.add(estadoBorradojPanel);
+
+        tipoMotorjPanel.setLayout(new java.awt.GridBagLayout());
+        tipoMotorjPanel.add(motorjLabel, new java.awt.GridBagConstraints());
+
+        borrarjPanel.add(tipoMotorjPanel);
 
         cuerpojPanel.add(borrarjPanel);
 
@@ -163,7 +166,7 @@ public class MotorGUI extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
         );
 
         pack();
@@ -180,7 +183,7 @@ public class MotorGUI extends javax.swing.JDialog {
         if (this.texto.matches("[A-Za-z]{5}")) {
             
             if (g.anadir(texto)) {
-                this.estadoInsertarjLabel.setText("añadido");
+                this.estadoInsertarjLabel.setText("Palabra añadida");
                 this.estadoInsertarjLabel.setForeground(Color.green);
             } else {
                 this.estadoInsertarjLabel.setText("La palabra ya existe");
@@ -197,7 +200,7 @@ public class MotorGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_anadirjButtonActionPerformed
 
     private void borrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarjButtonActionPerformed
-       this.estadoBorrarjLabel.setText("");
+       
         if (g.existePalabra(this.borrarjTextField.getText())) {
             if (g.borrar(this.borrarjTextField.getText())) {
                 this.estadoBorrarjLabel.setText("Palabra borrada");
@@ -273,7 +276,7 @@ public class MotorGUI extends javax.swing.JDialog {
     private javax.swing.JPanel insertarjPanel;
     private javax.swing.JPanel mainjPanel;
     private javax.swing.JLabel motorjLabel;
-    private javax.swing.JLabel tipoMotorjLabel;
+    private javax.swing.JPanel tipoMotorjPanel;
     private javax.swing.JLabel titulojLabel;
     // End of variables declaration//GEN-END:variables
 }
