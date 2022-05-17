@@ -42,11 +42,11 @@ public class MainGUI extends javax.swing.JFrame {
         iMotor g = null;
         if (this.archivojRadioButtonMenuItem.isSelected()) {
             g = new GestorMotorArchivo(idioma);
-           // System.out.println("Motor archivo");
+            // System.out.println("Motor archivo");
 
         } else if (this.baseDeDatosjRadioButtonMenuItem.isSelected()) {
             g = new GestorMotorBaseDeDatos(idioma);
-           // System.out.println("Motor base de datos");
+            // System.out.println("Motor base de datos");
 
         } else if (this.testjRadioButtonMenuItem.isSelected()) {
             g = new MotorTest();
@@ -138,7 +138,7 @@ public class MainGUI extends javax.swing.JFrame {
             if (a.toUpperCase().equals(p.toUpperCase())) {
                 //System.out.println("GANADOR!!!!");
                 finaljLabel.setText("Has ganado en " + intento + " intentos!!");
-
+                finaljLabel.setForeground(COLOR_VERDE);
                 finaljLabel.setVisible(true);
                 enviarjButton.setEnabled(false);
                 palabrasjTextField.setEnabled(false);
@@ -213,6 +213,12 @@ public class MainGUI extends javax.swing.JFrame {
                 if (intento < 6) {
                     intento++;
                     System.out.println("intento nº " + intento);
+                } else {
+                    finaljLabel.setForeground(COLOR_ROJO);
+                    finaljLabel.setText("Game over, has perdido");
+                    finaljLabel.setVisible(true);
+                    enviarjButton.setEnabled(false);
+                    palabrasjTextField.setEnabled(false);
                 }
             }
         } else {
@@ -312,7 +318,7 @@ public class MainGUI extends javax.swing.JFrame {
                 }
 
             }
-            
+
         } else if (baseDeDatosjRadioButtonMenuItem.isSelected()) {
 
             if (esjRadioButtonMenuItem.isSelected()) {
