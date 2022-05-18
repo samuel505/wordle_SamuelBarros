@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import org.daw1.SamuelBarros.Wordle.clases.*;
 
 /**
@@ -17,15 +18,17 @@ import org.daw1.SamuelBarros.Wordle.clases.*;
 public class MotorGUI extends javax.swing.JDialog {
 
     iMotor g = null;
-    
-    private static String idioma;
+    String idioma;
 
     /**
      * Creates new form Motor
      */
+    
+    
+   
+
     public MotorGUI(java.awt.Frame parent, boolean modal,String idioma) {
         super(parent, modal);
-        MotorGUI.idioma = idioma;
         initComponents();
         String tipoMotor = MainGUI.tipoMotor;
         motorjLabel.setText("");
@@ -33,22 +36,25 @@ public class MotorGUI extends javax.swing.JDialog {
         if (MainGUI.tipoMotor.equals("archivo")) {
             g = new GestorMotorArchivo(idioma);
 //            System.out.println(idioma);
-            motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
-            
+motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
+
         } else if (MainGUI.tipoMotor.equals("base")) {
 //            System.out.println(idioma);
 //            System.out.println(MainGUI.tipoMotor);
-            g = new GestorMotorBaseDeDatos(idioma);
-            motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
-            //System.out.println(MainGUI.tipoMotor);
+g = new GestorMotorBaseDeDatos(idioma);
+motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
+//System.out.println(MainGUI.tipoMotor);
 
         } else if (MainGUI.tipoMotor.equals("test")) {
 //            System.out.println(idioma);
 //            System.out.println(MainGUI.tipoMotor);
-            g = new MotorTest();
-           motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
+g = new MotorTest();
+motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idioma+")");
         }
+    }
 
+    private MotorGUI(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -94,8 +100,7 @@ public class MotorGUI extends javax.swing.JDialog {
 
         cuerpojPanel.setLayout(new java.awt.GridLayout(2, 1));
 
-        anadirjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alta palabra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
-        anadirjPanel.setToolTipText("");
+        anadirjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         anadirjPanel.setLayout(new java.awt.GridLayout(2, 1));
 
         anadirjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
@@ -126,8 +131,7 @@ public class MotorGUI extends javax.swing.JDialog {
 
         cuerpojPanel.add(anadirjPanel);
 
-        borrarjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Borrado palabra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
-        borrarjPanel.setToolTipText("");
+        borrarjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         borrarjPanel.setLayout(new java.awt.GridLayout(3, 1));
 
         borrarjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
@@ -169,7 +173,7 @@ public class MotorGUI extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
         );
 
         pack();
@@ -250,7 +254,7 @@ public class MotorGUI extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MotorGUI dialog = new MotorGUI(new javax.swing.JFrame(), true, idioma);
+                MotorGUI dialog = new MotorGUI(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {

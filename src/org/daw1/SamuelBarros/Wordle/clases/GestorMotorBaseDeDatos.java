@@ -4,12 +4,7 @@
  */
 package org.daw1.SamuelBarros.Wordle.clases;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -21,9 +16,9 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static org.daw1.SamuelBarros.Wordle.clases.conector.connect;
 
 /**
  *
@@ -87,25 +82,45 @@ private String idioma;
 
     @Override
     public boolean anadir(String palabra) {
-        return false;
-      
+        
+        
+        palabra = palabra.toUpperCase();
+        try ( Connection conn = DriverManager.getConnection(URL)) {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO palabras(lang,palabra) VALUES (?,?)");
+            
+            ps.setString(1, idioma);
+            ps.setString(2, palabra);
+            int insertado = ps.executeUpdate();
+            if (insertado>0) {
+                return true;
+            }
+            return false;
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
 
     }
 
     @Override
     public boolean borrar(String palabra) {
         palabra = palabra.toUpperCase();
-        try ( Connection conn = DriverManager.getConnection(URL)) {
-            Statement sentencia = conn.createStatement();
-            if (sentencia.executeUpdate("DELETE FROM palabras WHERE lang='"+idioma+"'"+"AND palabra = '?'")<1) {
-                return false;
+        try ( Connection conn = DriverManager.getConnection(URL); 
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM palabras WHERE lang = ? AND palabra = ? ")){
+            
+            ps.setString(1, idioma);
+            ps.setString(2, palabra);
+            int eliminadas = ps.executeUpdate();
+            if (eliminadas > 0) {
+                return true;
             }
-            return true;
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
+        return false;
     }
 
     @Override
@@ -125,6 +140,11 @@ private String idioma;
 
     @Override
     public boolean existePalabra(String palabra) {
+        try {
+            cargarTextos();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         palabra = palabra.toUpperCase();
         Iterator it = palabras.iterator();
         String p = "";
