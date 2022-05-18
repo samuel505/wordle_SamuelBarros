@@ -17,14 +17,15 @@ import org.daw1.SamuelBarros.Wordle.clases.*;
 public class MotorGUI extends javax.swing.JDialog {
 
     iMotor g = null;
-    String idioma = MainGUI.idioma;
+    
+    private static String idioma;
 
     /**
      * Creates new form Motor
      */
-    public MotorGUI(java.awt.Frame parent, boolean modal) {
-
+    public MotorGUI(java.awt.Frame parent, boolean modal,String idioma) {
         super(parent, modal);
+        MotorGUI.idioma = idioma;
         initComponents();
         String tipoMotor = MainGUI.tipoMotor;
         motorjLabel.setText("");
@@ -249,7 +250,7 @@ public class MotorGUI extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MotorGUI dialog = new MotorGUI(new javax.swing.JFrame(), true);
+                MotorGUI dialog = new MotorGUI(new javax.swing.JFrame(), true, idioma);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     public void windowClosing(java.awt.event.WindowEvent e) {

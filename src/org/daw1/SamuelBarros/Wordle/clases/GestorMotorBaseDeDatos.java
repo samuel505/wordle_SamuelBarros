@@ -40,7 +40,12 @@ private String idioma;
     private final Set<String> palabras = new TreeSet<>();
 
     public GestorMotorBaseDeDatos(String idioma) {
-        this.idioma=idioma;
+        if (idioma.equals("es")||idioma.equals("gl")) {
+           this.idioma=idioma; 
+        }else{
+            throw new IllegalArgumentException("Solo validos es y gl");
+        }
+        
     }
 
     public boolean existe() {
@@ -92,7 +97,7 @@ private String idioma;
         palabra = palabra.toUpperCase();
         try ( Connection conn = DriverManager.getConnection(URL)) {
             Statement sentencia = conn.createStatement();
-            if (sentencia.executeUpdate("DELETE FROM palabras WHERE lang='"+idioma+"'"+"AND palabra = '"+palabra+"'")<1) {
+            if (sentencia.executeUpdate("DELETE FROM palabras WHERE lang='"+idioma+"'"+"AND palabra = '?'")<1) {
                 return false;
             }
             return true;

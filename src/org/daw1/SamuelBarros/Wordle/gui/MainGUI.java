@@ -893,7 +893,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void ajustesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajustesjMenuItemActionPerformed
         nuevaPartida();
-        MotorGUI dialog = new MotorGUI(this, true);
+        MotorGUI dialog = new MotorGUI(this, true,idioma);
         dialog.setVisible(true);
         nuevaPartida();
     }//GEN-LAST:event_ajustesjMenuItemActionPerformed

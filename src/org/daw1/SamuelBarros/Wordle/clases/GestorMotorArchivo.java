@@ -44,6 +44,8 @@ public class GestorMotorArchivo implements iMotor {
             f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasEspanol.txt");
         }else if (idioma.equals("gl")){
             f= new File(Paths.get(".") + File.separator + "data" + File.separator + "palabrasGalego.txt");
+        }else{
+            throw new IllegalArgumentException("Solo validos es y gl");
         }
         
     }
