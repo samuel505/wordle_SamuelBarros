@@ -93,7 +93,8 @@ public class MotorGUI extends javax.swing.JDialog {
 
         cuerpojPanel.setLayout(new java.awt.GridLayout(2, 1));
 
-        anadirjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        anadirjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alta palabra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+        anadirjPanel.setToolTipText("");
         anadirjPanel.setLayout(new java.awt.GridLayout(2, 1));
 
         anadirjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
@@ -124,7 +125,8 @@ public class MotorGUI extends javax.swing.JDialog {
 
         cuerpojPanel.add(anadirjPanel);
 
-        borrarjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        borrarjPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Borrado palabra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+        borrarjPanel.setToolTipText("");
         borrarjPanel.setLayout(new java.awt.GridLayout(3, 1));
 
         borrarjTextField.setPreferredSize(new java.awt.Dimension(160, 23));
@@ -166,7 +168,7 @@ public class MotorGUI extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+            .addComponent(mainjPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
         );
 
         pack();

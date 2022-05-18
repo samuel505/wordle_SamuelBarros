@@ -135,7 +135,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         if (a == null) {
             System.out.println("NO HAY PALABRAS");
-            JOptionPane.showMessageDialog(null,"El archivo de texto que estas usando no tiene palabras \n"+"Añadele palabras para poder empezar la partida","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"El archivo de texto que estas usando no tiene palabras \n"+"Añadele palabras para poder empezar la partida","ERROR",JOptionPane.ERROR_MESSAGE);
         } else {
             char aleatorio[] = a.toUpperCase().toCharArray();
 
