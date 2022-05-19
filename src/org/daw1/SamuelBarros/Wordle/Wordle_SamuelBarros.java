@@ -5,6 +5,9 @@
  */
 package org.daw1.SamuelBarros.Wordle;
 
+import org.daw1.SamuelBarros.Wordle.gui.MainGUI;
+
+
 /**
  *
  * @author alumno
@@ -15,7 +18,7 @@ public class Wordle_SamuelBarros {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        MainGUI.main(args);
     }
     
 }
