@@ -24,7 +24,7 @@ import org.daw1.SamuelBarros.Wordle.clases.iMotor;
  */
 public class MainGUI extends javax.swing.JFrame {
 
-    protected static String idioma = "idioma";
+    private static String idioma = "idioma";
 
     protected static String tipoMotor = "motor";
     private String palabraAleatoria = "";
@@ -126,6 +126,50 @@ public class MainGUI extends javax.swing.JFrame {
     Set<String> letrasA = new TreeSet<>();
     Set<String> letrasR = new TreeSet<>();
 
+    private void ganar(char[] persona, char[] aleatorio) {
+
+        JLabel[] label = labels[intento - 1];
+        for (int j = 0; j < label.length; j++) {
+            JLabel l = label[j];
+            l.setVisible(true);
+            l.setForeground(COLOR_VERDE);
+        }
+
+        for (int j = 0; j < label.length; j++) {
+            JLabel l = label[j];
+            l.setVisible(true);
+            if (persona[j] == aleatorio[j]) {
+                l.setForeground(COLOR_VERDE);
+
+                letrasV.add((persona[j] + "").toUpperCase());
+
+                String sV = "";
+                for (String lV : letrasV) {
+                    sV += lV + " ";
+                }
+
+                bienjLabel.setText(sV);
+
+            }
+
+        }
+
+        letrasA.removeAll(letrasV);
+        String ssA = "";
+        for (String lA : letrasA) {
+            ssA += lA + " ";
+        }
+
+        existenjLabel.setText(ssA);
+        finaljLabel.setText("Has ganado en " + intento + " intentos!!");
+        finaljLabel.setForeground(COLOR_VERDE);
+        finaljLabel.setVisible(true);
+        enviarjButton.setEnabled(false);
+        palabrasjTextField.setEnabled(false);
+        testCambiarPalabra(intento - 1, persona);
+
+    }
+
     private void existeLetras(String p) {
         //p="pablo";
         //String a ="samue";
@@ -134,45 +178,16 @@ public class MainGUI extends javax.swing.JFrame {
         char persona[] = p.toUpperCase().toCharArray();
 
         if (a == null) {
-            System.out.println("NO HAY PALABRAS");
-            JOptionPane.showMessageDialog(this,"El archivo de texto que estas usando no tiene palabras \n"+"Añadele palabras para poder empezar la partida","ERROR",JOptionPane.ERROR_MESSAGE);
+            // System.out.println("NO HAY PALABRAS");
+            JOptionPane.showMessageDialog(this, "El archivo de texto que estas usando no tiene palabras \n" + "Añadele palabras para poder empezar la partida", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
+
             char aleatorio[] = a.toUpperCase().toCharArray();
 
             if (gm.existePalabra(p.toUpperCase())) {
 
                 if (a.toUpperCase().equals(p.toUpperCase())) {
-                    //System.out.println("GANADOR!!!!");
-                    finaljLabel.setText("Has ganado en " + intento + " intentos!!");
-                    finaljLabel.setForeground(COLOR_VERDE);
-                    finaljLabel.setVisible(true);
-                    enviarjButton.setEnabled(false);
-                    palabrasjTextField.setEnabled(false);
-                    testCambiarPalabra(intento - 1, persona);
-                    JLabel[] label = labels[intento - 1];
-                    for (int j = 0; j < label.length; j++) {
-                        JLabel l = label[j];
-                        l.setVisible(true);
-                        l.setForeground(COLOR_VERDE);
-                    }
-                    for (int j = 0; j < label.length; j++) {
-                        JLabel l = label[j];
-                        l.setVisible(true);
-                        if (persona[j] == aleatorio[j]) {
-                            l.setForeground(COLOR_VERDE);
-
-                            letrasV.add((persona[j] + "").toUpperCase());
-
-                            String sV = "";
-                            for (String lV : letrasV) {
-                                sV += lV + " ";
-                            }
-
-                            bienjLabel.setText(sV);
-
-                        }
-
-                    }
+                   ganar(persona,aleatorio);
 
                 } else {
                     testCambiarPalabra(intento - 1, persona);
@@ -185,24 +200,46 @@ public class MainGUI extends javax.swing.JFrame {
 
                             letrasV.add((persona[j] + "").toUpperCase());
 
+                             if (letrasA.contains(persona[j] + "")) {
+                                //System.out.println(persona[j] + "");
+                                letrasA.removeAll(letrasV);
+                            }
+
                             String sV = "";
                             for (String lV : letrasV) {
                                 sV += lV + " ";
                             }
 
+                            String ssA = "";
+                            for (String lA : letrasA) {
+                                ssA += lA + " ";
+                            }
+
                             bienjLabel.setText(sV);
+                            existenjLabel.setText(ssA); 
 
                         } else if (a.contains(persona[j] + "")) {
                             l.setForeground(COLOR_AMARILLO);
 
                             letrasA.add((persona[j] + "").toUpperCase());
 
-                            String sA = "";
-                            for (String lA : letrasA) {
-                                sA += lA + " ";
+                            if (letrasA.contains(persona[j] + "")) {
+                                //System.out.println(persona[j] + "");
+                                letrasA.removeAll(letrasV);
                             }
 
-                            existenjLabel.setText(sA);
+                            String sV = "";
+                            for (String lV : letrasV) {
+                                sV += lV + " ";
+                            }
+
+                            String ssA = "";
+                            for (String lA : letrasA) {
+                                ssA += lA + " ";
+                            }
+
+                            bienjLabel.setText(sV);
+                            existenjLabel.setText(ssA); 
                         } else {
                             l.setForeground(COLOR_ROJO);
 
@@ -218,7 +255,7 @@ public class MainGUI extends javax.swing.JFrame {
                     }
                     if (intento < 6) {
                         intento++;
-                        System.out.println("intento nº " + intento);
+                        //System.out.println("intento nº " + intento);
                     } else {
                         finaljLabel.setForeground(COLOR_ROJO);
                         finaljLabel.setText("Game over, has perdido");
@@ -293,15 +330,15 @@ public class MainGUI extends javax.swing.JFrame {
         maljLabel.setText("");
         if (archivojRadioButtonMenuItem.isSelected()) {
 
-            System.out.println(idioma);
+            // System.out.println(idioma);
             if (esjRadioButtonMenuItem.isSelected()) {
-                System.out.println("Español seleccionado");
+                // System.out.println("Español seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos "+ex);
+                    System.out.println("no se pudo cargar los datos " + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
@@ -311,13 +348,13 @@ public class MainGUI extends javax.swing.JFrame {
                     ocultarFilas();
                 }
             } else if (gljRadioButtonMenuItem.isSelected()) {
-                System.out.println("Gallego seleccionado");
+                // System.out.println("Gallego seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos "+ex);
+                    System.out.println("no se pudo cargar los datos " + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
@@ -333,13 +370,13 @@ public class MainGUI extends javax.swing.JFrame {
         } else if (baseDeDatosjRadioButtonMenuItem.isSelected()) {
 
             if (esjRadioButtonMenuItem.isSelected()) {
-                System.out.println("Español seleccionado");
+                // System.out.println("Español seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos"+ ex);
+                    System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
@@ -349,7 +386,7 @@ public class MainGUI extends javax.swing.JFrame {
                     ocultarFilas();
                 }
             } else if (gljRadioButtonMenuItem.isSelected()) {
-                System.out.println("Galego seleccionado");
+               // System.out.println("Galego seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
@@ -369,13 +406,13 @@ public class MainGUI extends javax.swing.JFrame {
         } else if (testjRadioButtonMenuItem.isSelected()) {
 
             if (esjRadioButtonMenuItem.isSelected()) {
-                System.out.println("Español seleccionado");
+               // System.out.println("Español seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos"+ ex);
+                    System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
@@ -385,13 +422,13 @@ public class MainGUI extends javax.swing.JFrame {
                     ocultarFilas();
                 }
             } else if (gljRadioButtonMenuItem.isSelected()) {
-                System.out.println("Galego seleccionado");
+               // System.out.println("Galego seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos");
+                    System.out.println("no se pudo cargar los datos "+ ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
                 System.out.println(palabraAleatoria);
@@ -874,11 +911,11 @@ public class MainGUI extends javax.swing.JFrame {
         errorjLabel.setText("");
         if (palabrasjTextField.getText().matches("[A-Za-z]{5}")) {
             existeLetras(this.palabrasjTextField.getText().toUpperCase());
-        }else{
+        } else {
             errorjLabel.setText("La palabra debe ser de 5 letras");
-             errorjLabel.setForeground(COLOR_ROJO);
+            errorjLabel.setForeground(COLOR_ROJO);
         }
-        
+
         //existeLetras(usuario");
     }//GEN-LAST:event_enviarjButtonActionPerformed
 
@@ -893,7 +930,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void ajustesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajustesjMenuItemActionPerformed
         nuevaPartida();
-        MotorGUI dialog = new MotorGUI(this, true,idioma);
+        MotorGUI dialog = new MotorGUI(this, true, idioma);
         dialog.setVisible(true);
         nuevaPartida();
     }//GEN-LAST:event_ajustesjMenuItemActionPerformed
