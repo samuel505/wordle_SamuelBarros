@@ -49,11 +49,11 @@ private String idioma;
 
     
     public boolean comprobarTexto(String p) {
-        String texto = "";
-        for (String palabra : palabras) {
-            texto += palabra + " ";
+       StringBuilder sb = new StringBuilder();
+       for (String palabra : palabras) {
+            sb.append(palabra).append(" ");
         }
-        if (texto.contains(p)) {
+        if (sb.toString().contains(p)) {
             return true;
         }
         return false;

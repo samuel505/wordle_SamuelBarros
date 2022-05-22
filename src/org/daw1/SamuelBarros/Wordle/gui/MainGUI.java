@@ -255,6 +255,7 @@ public class MainGUI extends javax.swing.JFrame {
                     }
                     if (intento < 6) {
                         intento++;
+                        
                         //System.out.println("intento nº " + intento);
                     } else {
                         finaljLabel.setForeground(COLOR_ROJO);
@@ -262,6 +263,8 @@ public class MainGUI extends javax.swing.JFrame {
                         finaljLabel.setVisible(true);
                         enviarjButton.setEnabled(false);
                         palabrasjTextField.setEnabled(false);
+                        JOptionPane.showMessageDialog(this, "La palabra correcta era: " + palabraAleatoria, "Fin de partida", JOptionPane.INFORMATION_MESSAGE);
+
                     }
                 }
             } else {
@@ -341,7 +344,7 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos " + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-                System.out.println(palabraAleatoria);
+                //System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
@@ -357,7 +360,7 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos " + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-                System.out.println(palabraAleatoria);
+              //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
@@ -379,7 +382,7 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-                System.out.println(palabraAleatoria);
+              //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
@@ -395,7 +398,7 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-                System.out.println(palabraAleatoria);
+             //   System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
@@ -415,7 +418,7 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-                System.out.println(palabraAleatoria);
+              //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
@@ -431,7 +434,7 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos "+ ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-                System.out.println(palabraAleatoria);
+                //System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("A")) {

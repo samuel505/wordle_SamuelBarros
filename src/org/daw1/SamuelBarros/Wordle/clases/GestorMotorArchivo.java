@@ -51,11 +51,12 @@ public class GestorMotorArchivo implements iMotor {
     }
     
     public boolean comprobarTexto(String p) {
-        String texto = "";
+        StringBuilder sb = new StringBuilder();
+        
         for (String palabra : palabras) {
-            texto += palabra + " ";
+            sb.append(palabra).append(" ");
         }
-        if (texto.contains(p)) {
+        if (sb.toString().contains(p)) {
             return true;
         }
         return false;
@@ -161,10 +162,10 @@ public class GestorMotorArchivo implements iMotor {
         //System.out.println("despues de borrar" + palabras);
         
         
-        String palabra = "";
+        StringBuilder sb1 = new StringBuilder();
         
         for (String palabra1 : palabras) {
-            palabra+=palabra1+"\n";
+            sb1.append(palabra1).append("\n");
         }
         
         
@@ -181,7 +182,7 @@ public class GestorMotorArchivo implements iMotor {
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(f));) {
                
-                bw.append(palabra.toLowerCase());
+                bw.append(sb1.toString().toLowerCase());
                
                 return true;
             } catch (IOException ex) {
