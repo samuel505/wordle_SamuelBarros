@@ -65,7 +65,7 @@ private String idioma;
 
         try ( Connection conn = DriverManager.getConnection(URL)) {
             // db parameters
-            System.out.println(conn.getCatalog());
+           // System.out.println(conn.getCatalog());
             Statement sentencia = conn.createStatement();
             try ( ResultSet rs = sentencia.executeQuery("SELECT * FROM palabras WHERE lang='"+idioma+"'")) {
                 while (rs.next()) {
@@ -145,6 +145,7 @@ private String idioma;
         } catch (IOException ex) {
             Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         palabra = palabra.toUpperCase();
         Iterator it = palabras.iterator();
         String p = "";
