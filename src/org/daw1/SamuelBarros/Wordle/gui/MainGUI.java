@@ -167,7 +167,7 @@ public class MainGUI extends javax.swing.JFrame {
         enviarjButton.setEnabled(false);
         palabrasjTextField.setEnabled(false);
         testCambiarPalabra(intento - 1, persona);
-
+        
     }
 
     private void existeLetras(String p) {
@@ -322,6 +322,7 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     private void nuevaPartida() {
+        ocultarFilas();
         idioma();
         gm = selectMotor();
         tipoMotor();
@@ -335,6 +336,7 @@ public class MainGUI extends javax.swing.JFrame {
 
             // System.out.println(idioma);
             if (esjRadioButtonMenuItem.isSelected()) {
+                ocultarFilas();
                 // System.out.println("Español seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
@@ -351,6 +353,7 @@ public class MainGUI extends javax.swing.JFrame {
                     ocultarFilas();
                 }
             } else if (gljRadioButtonMenuItem.isSelected()) {
+                ocultarFilas();
                 // System.out.println("Gallego seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
@@ -360,13 +363,10 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos " + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-              //  System.out.println(palabraAleatoria);
+                System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
-                    ocultarFilas();
-
-                }
+                
 
             }
 
@@ -385,9 +385,7 @@ public class MainGUI extends javax.swing.JFrame {
               //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
-                    ocultarFilas();
-                }
+                
             } else if (gljRadioButtonMenuItem.isSelected()) {
                // System.out.println("Galego seleccionado");
                 intento = 1;
@@ -401,9 +399,7 @@ public class MainGUI extends javax.swing.JFrame {
              //   System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
-                    ocultarFilas();
-                }
+                
 
             }
         } else if (testjRadioButtonMenuItem.isSelected()) {
@@ -421,9 +417,7 @@ public class MainGUI extends javax.swing.JFrame {
               //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
-                    ocultarFilas();
-                }
+                
             } else if (gljRadioButtonMenuItem.isSelected()) {
                // System.out.println("Galego seleccionado");
                 intento = 1;
@@ -437,9 +431,7 @@ public class MainGUI extends javax.swing.JFrame {
                 //System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
-                    ocultarFilas();
-                }
+                
 
             }
         }
