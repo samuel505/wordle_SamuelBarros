@@ -167,7 +167,7 @@ public class MainGUI extends javax.swing.JFrame {
         enviarjButton.setEnabled(false);
         palabrasjTextField.setEnabled(false);
         testCambiarPalabra(intento - 1, persona);
-        
+
     }
 
     private void existeLetras(String p) {
@@ -187,7 +187,7 @@ public class MainGUI extends javax.swing.JFrame {
             if (gm.existePalabra(p.toUpperCase())) {
 
                 if (a.toUpperCase().equals(p.toUpperCase())) {
-                   ganar(persona,aleatorio);
+                    ganar(persona, aleatorio);
 
                 } else {
                     testCambiarPalabra(intento - 1, persona);
@@ -200,7 +200,7 @@ public class MainGUI extends javax.swing.JFrame {
 
                             letrasV.add((persona[j] + "").toUpperCase());
 
-                             if (letrasA.contains(persona[j] + "")) {
+                            if (letrasA.contains(persona[j] + "")) {
                                 //System.out.println(persona[j] + "");
                                 letrasA.removeAll(letrasV);
                             }
@@ -216,7 +216,7 @@ public class MainGUI extends javax.swing.JFrame {
                             }
 
                             bienjLabel.setText(sV);
-                            existenjLabel.setText(ssA); 
+                            existenjLabel.setText(ssA);
 
                         } else if (a.contains(persona[j] + "")) {
                             l.setForeground(COLOR_AMARILLO);
@@ -239,7 +239,7 @@ public class MainGUI extends javax.swing.JFrame {
                             }
 
                             bienjLabel.setText(sV);
-                            existenjLabel.setText(ssA); 
+                            existenjLabel.setText(ssA);
                         } else {
                             l.setForeground(COLOR_ROJO);
 
@@ -255,7 +255,7 @@ public class MainGUI extends javax.swing.JFrame {
                     }
                     if (intento < 6) {
                         intento++;
-                        
+
                         //System.out.println("intento nº " + intento);
                     } else {
                         finaljLabel.setForeground(COLOR_ROJO);
@@ -322,7 +322,7 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     private void nuevaPartida() {
-        ocultarFilas();
+
         idioma();
         gm = selectMotor();
         tipoMotor();
@@ -349,9 +349,6 @@ public class MainGUI extends javax.swing.JFrame {
                 //System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
-                    ocultarFilas();
-                }
             } else if (gljRadioButtonMenuItem.isSelected()) {
                 ocultarFilas();
                 // System.out.println("Gallego seleccionado");
@@ -366,12 +363,10 @@ public class MainGUI extends javax.swing.JFrame {
                 System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                
-
             }
 
         } else if (baseDeDatosjRadioButtonMenuItem.isSelected()) {
-
+            ocultarFilas();
             if (esjRadioButtonMenuItem.isSelected()) {
                 // System.out.println("Español seleccionado");
                 intento = 1;
@@ -382,12 +377,11 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-              //  System.out.println(palabraAleatoria);
+                //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                
             } else if (gljRadioButtonMenuItem.isSelected()) {
-               // System.out.println("Galego seleccionado");
+                // System.out.println("Galego seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
@@ -396,16 +390,14 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-             //   System.out.println(palabraAleatoria);
+                //   System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                
-
             }
         } else if (testjRadioButtonMenuItem.isSelected()) {
-
+            ocultarFilas();
             if (esjRadioButtonMenuItem.isSelected()) {
-               // System.out.println("Español seleccionado");
+                // System.out.println("Español seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
@@ -414,25 +406,22 @@ public class MainGUI extends javax.swing.JFrame {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
-              //  System.out.println(palabraAleatoria);
+                //  System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                
             } else if (gljRadioButtonMenuItem.isSelected()) {
-               // System.out.println("Galego seleccionado");
+                // System.out.println("Galego seleccionado");
                 intento = 1;
                 enviarjButton.setEnabled(true);
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos "+ ex);
+                    System.out.println("no se pudo cargar los datos " + ex);
                 }
                 palabraAleatoria = gm.palabraAleatoria();
                 //System.out.println(palabraAleatoria);
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                
-
             }
         }
 
