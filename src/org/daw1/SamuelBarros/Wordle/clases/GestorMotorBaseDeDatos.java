@@ -26,30 +26,31 @@ import java.util.logging.Logger;
  */
 public class GestorMotorBaseDeDatos implements iMotor {
 
+    
     private static File f = new File(Paths.get(".") + File.separator + "data" + File.separator + "dbwordle.db");
-
-    private String idioma;
+    
+private String idioma;
     private static final String URL = "jdbc:sqlite:" + f.toString();
 
     private final Set<String> palabras = new TreeSet<>();
 
     public GestorMotorBaseDeDatos(String idioma) {
-
-        if (idioma.equals("es") || idioma.equals("gl")) {
-            this.idioma = idioma;
-        } else {
+        if (idioma.equals("es")||idioma.equals("gl")) {
+           this.idioma=idioma; 
+        }else{
             throw new IllegalArgumentException("Solo validos es y gl");
         }
-
+        
     }
 
     public boolean existe() {
         return f.exists();
     }
 
+    
     public boolean comprobarTexto(String p) {
-        StringBuilder sb = new StringBuilder();
-        for (String palabra : palabras) {
+       StringBuilder sb = new StringBuilder();
+       for (String palabra : palabras) {
             sb.append(palabra).append(" ");
         }
         if (sb.toString().contains(p)) {
@@ -62,11 +63,11 @@ public class GestorMotorBaseDeDatos implements iMotor {
     public boolean cargarTextos() throws IOException {
         palabras.clear();
 
-        try (Connection conn = DriverManager.getConnection(URL)) {
+        try ( Connection conn = DriverManager.getConnection(URL)) {
             // db parameters
-            // System.out.println(conn.getCatalog());
+           // System.out.println(conn.getCatalog());
             Statement sentencia = conn.createStatement();
-            try (ResultSet rs = sentencia.executeQuery("SELECT * FROM palabras WHERE lang='" + idioma + "'")) {
+            try ( ResultSet rs = sentencia.executeQuery("SELECT * FROM palabras WHERE lang='"+idioma+"'")) {
                 while (rs.next()) {
                     palabras.add(rs.getString("palabra").toUpperCase());
                 }
@@ -76,24 +77,25 @@ public class GestorMotorBaseDeDatos implements iMotor {
             System.out.println(e.getMessage());
             return false;
         }
-
+        
     }
 
     @Override
     public boolean anadir(String palabra) {
-
+        
+        
         palabra = palabra.toUpperCase();
-        try (Connection conn = DriverManager.getConnection(URL)) {
+        try ( Connection conn = DriverManager.getConnection(URL)) {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO palabras(lang,palabra) VALUES (?,?)");
-
+            
             ps.setString(1, idioma);
             ps.setString(2, palabra);
             int insertado = ps.executeUpdate();
-            if (insertado > 0) {
+            if (insertado>0) {
                 return true;
             }
             return false;
-
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
@@ -102,72 +104,48 @@ public class GestorMotorBaseDeDatos implements iMotor {
     }
 
     @Override
-    public boolean borrar(String palabra) throws SQLException {
+    public boolean borrar(String palabra) {
         palabra = palabra.toUpperCase();
-        try (Connection conn = DriverManager.getConnection(URL);
-                PreparedStatement ps = conn.prepareStatement("DELETE FROM palabras WHERE lang = ? AND palabra = ? ")) {
-
+        try ( Connection conn = DriverManager.getConnection(URL); 
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM palabras WHERE lang = ? AND palabra = ? ")){
+            
             ps.setString(1, idioma);
             ps.setString(2, palabra);
             int eliminadas = ps.executeUpdate();
             if (eliminadas > 0) {
                 return true;
             }
-
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
         return false;
     }
 
-//select palabras from palabras where land = ? limit n
-    private int cantidadPalabras() throws SQLException {
-        int count = 0;
-
-        String sql = "SELECT COUNT(*) as total FROM palabras WHERE lang = ?";
-        try (Connection conn = DriverManager.getConnection(URL);
-                PreparedStatement ps = conn.prepareStatement(sql);) {
-            ps.setString(1, "es");
-            try (ResultSet rs = ps.executeQuery();) {
-                count = rs.getInt("total");
-            }
-
+    @Override
+    public String palabraAleatoria() {
+        if (palabras.isEmpty()) {
+            return null;
         }
+        Random rm = new Random();
+        int random = rm.nextInt(palabras.size());
+        String texto = "";
 
-        return count;
+        Object array[] = palabras.toArray();
+        String palabra = (String) array[random];
+        // System.out.println(palabra);
+        return palabra;
     }
 
     @Override
-    public String palabraAleatoria() throws SQLException {
-        String s = "";
-        Random rd = new Random();
-        int random = rd.nextInt(cantidadPalabras());
-
-        try (Connection conn = DriverManager.getConnection(URL)) {
-
-            try (PreparedStatement ps = conn.prepareStatement("select palabra from palabras where lang = ? LIMIT ?,1");) {
-                ps.setString(1, idioma);
-                ps.setInt(2, random);
-
-                try (ResultSet rs = ps.executeQuery();) {
-                    rs.next();
-                    s = rs.getString("palabra");
-                }
-
-            }
-
-            return s;
-
-        }
-    }
-
-    @Override
-    public boolean existePalabra(String palabra
-    ) {
+    public boolean existePalabra(String palabra) {
         try {
             cargarTextos();
         } catch (IOException ex) {
             Logger.getLogger(GestorMotorBaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         palabra = palabra.toUpperCase();
         Iterator it = palabras.iterator();
         String p = "";
