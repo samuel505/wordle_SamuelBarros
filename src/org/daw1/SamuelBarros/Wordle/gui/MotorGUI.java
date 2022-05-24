@@ -6,7 +6,6 @@ package org.daw1.SamuelBarros.Wordle.gui;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -190,16 +189,12 @@ motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idiom
 
         if (this.texto.matches("[A-Za-z]{5}")) {
             
-            try {
-                if (g.anadir(texto)) {
-                    this.estadoInsertarjLabel.setText("Palabra añadida");
-                    this.estadoInsertarjLabel.setForeground(Color.green);
-                } else {
-                    this.estadoInsertarjLabel.setText("La palabra ya existe");
-                    this.estadoInsertarjLabel.setForeground(Color.red);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(MotorGUI.class.getName()).log(Level.SEVERE, null, ex);
+            if (g.anadir(texto)) {
+                this.estadoInsertarjLabel.setText("Palabra añadida");
+                this.estadoInsertarjLabel.setForeground(Color.green);
+            } else {
+                this.estadoInsertarjLabel.setText("La palabra ya existe");
+                this.estadoInsertarjLabel.setForeground(Color.red);
             }
 
         } else {
@@ -213,24 +208,16 @@ motorjLabel.setText("Tipo de motor: "+"("+tipoMotor+")" + " idioma: " +"("+idiom
 
     private void borrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarjButtonActionPerformed
        
-        try {
-            if (g.existePalabra(this.borrarjTextField.getText())) {
-                try {
-                    if (g.borrar(this.borrarjTextField.getText())) {
-                        this.estadoBorrarjLabel.setText("Palabra borrada"); 
-                        this.estadoBorrarjLabel.setForeground(Color.green);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(MotorGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-            }else {
+        if (g.existePalabra(this.borrarjTextField.getText())) {
+            if (g.borrar(this.borrarjTextField.getText())) {
+                this.estadoBorrarjLabel.setText("Palabra borrada");
+                this.estadoBorrarjLabel.setForeground(Color.green);
+            } 
+
+        }else {
                 this.estadoBorrarjLabel.setText("La palabra no existe");
                 this.estadoBorrarjLabel.setForeground(Color.red);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MotorGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_borrarjButtonActionPerformed
 
     public static void main(String args[]) {
