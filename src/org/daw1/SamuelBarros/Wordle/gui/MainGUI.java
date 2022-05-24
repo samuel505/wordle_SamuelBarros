@@ -7,6 +7,7 @@ package org.daw1.SamuelBarros.Wordle.gui;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -184,91 +185,95 @@ public class MainGUI extends javax.swing.JFrame {
 
             char aleatorio[] = a.toUpperCase().toCharArray();
 
-            if (gm.existePalabra(p.toUpperCase())) {
-
-                if (a.toUpperCase().equals(p.toUpperCase())) {
-                   ganar(persona,aleatorio);
-
-                } else {
-                    testCambiarPalabra(intento - 1, persona);
-                    JLabel[] label = labels[intento - 1];
-                    for (int j = 0; j < label.length; j++) {
-                        JLabel l = label[j];
-                        l.setVisible(true);
-                        if (persona[j] == aleatorio[j]) {
-                            l.setForeground(COLOR_VERDE);
-
-                            letrasV.add((persona[j] + "").toUpperCase());
-
-                             if (letrasA.contains(persona[j] + "")) {
-                                //System.out.println(persona[j] + "");
-                                letrasA.removeAll(letrasV);
-                            }
-
-                            String sV = "";
-                            for (String lV : letrasV) {
-                                sV += lV + " ";
-                            }
-
-                            String ssA = "";
-                            for (String lA : letrasA) {
-                                ssA += lA + " ";
-                            }
-
-                            bienjLabel.setText(sV);
-                            existenjLabel.setText(ssA); 
-
-                        } else if (a.contains(persona[j] + "")) {
-                            l.setForeground(COLOR_AMARILLO);
-
-                            letrasA.add((persona[j] + "").toUpperCase());
-
-                            if (letrasA.contains(persona[j] + "")) {
-                                //System.out.println(persona[j] + "");
-                                letrasA.removeAll(letrasV);
-                            }
-
-                            String sV = "";
-                            for (String lV : letrasV) {
-                                sV += lV + " ";
-                            }
-
-                            String ssA = "";
-                            for (String lA : letrasA) {
-                                ssA += lA + " ";
-                            }
-
-                            bienjLabel.setText(sV);
-                            existenjLabel.setText(ssA); 
-                        } else {
-                            l.setForeground(COLOR_ROJO);
-
-                            letrasR.add((persona[j] + "").toUpperCase());
-
-                            String sR = "";
-                            for (String lR : letrasR) {
-                                sR += lR + " ";
-                            }
-                            maljLabel.setText(sR);
-                        }
-                        //l.setForeground(COLOR_VERDE);
-                    }
-                    if (intento < 6) {
-                        intento++;
+            try {
+                if (gm.existePalabra(p.toUpperCase())) {
+                    
+                    if (a.toUpperCase().equals(p.toUpperCase())) {
+                        ganar(persona,aleatorio);
                         
-                        //System.out.println("intento nº " + intento);
                     } else {
-                        finaljLabel.setForeground(COLOR_ROJO);
-                        finaljLabel.setText("Game over, has perdido");
-                        finaljLabel.setVisible(true);
-                        enviarjButton.setEnabled(false);
-                        palabrasjTextField.setEnabled(false);
-                        JOptionPane.showMessageDialog(this, "La palabra correcta era: " + palabraAleatoria, "Fin de partida", JOptionPane.INFORMATION_MESSAGE);
-
+                        testCambiarPalabra(intento - 1, persona);
+                        JLabel[] label = labels[intento - 1];
+                        for (int j = 0; j < label.length; j++) {
+                            JLabel l = label[j];
+                            l.setVisible(true);
+                            if (persona[j] == aleatorio[j]) {
+                                l.setForeground(COLOR_VERDE);
+                                
+                                letrasV.add((persona[j] + "").toUpperCase());
+                                
+                                if (letrasA.contains(persona[j] + "")) {
+                                    //System.out.println(persona[j] + "");
+                                    letrasA.removeAll(letrasV);
+                                }
+                                
+                                String sV = "";
+                                for (String lV : letrasV) {
+                                    sV += lV + " ";
+                                }
+                                
+                                String ssA = "";
+                                for (String lA : letrasA) {
+                                    ssA += lA + " ";
+                                }
+                                
+                                bienjLabel.setText(sV);
+                                existenjLabel.setText(ssA);
+                                
+                            } else if (a.contains(persona[j] + "")) {
+                                l.setForeground(COLOR_AMARILLO);
+                                
+                                letrasA.add((persona[j] + "").toUpperCase());
+                                
+                                if (letrasA.contains(persona[j] + "")) {
+                                    //System.out.println(persona[j] + "");
+                                    letrasA.removeAll(letrasV);
+                                }
+                                
+                                String sV = "";
+                                for (String lV : letrasV) {
+                                    sV += lV + " ";
+                                }
+                                
+                                String ssA = "";
+                                for (String lA : letrasA) {
+                                    ssA += lA + " ";
+                                }
+                                
+                                bienjLabel.setText(sV);
+                                existenjLabel.setText(ssA);
+                            } else {
+                                l.setForeground(COLOR_ROJO);
+                                
+                                letrasR.add((persona[j] + "").toUpperCase());
+                                
+                                String sR = "";
+                                for (String lR : letrasR) {
+                                    sR += lR + " ";
+                                }
+                                maljLabel.setText(sR);
+                            }
+                            //l.setForeground(COLOR_VERDE);
+                        }
+                        if (intento < 6) {
+                            intento++;
+                            
+                            //System.out.println("intento nº " + intento);
+                        } else {
+                            finaljLabel.setForeground(COLOR_ROJO);
+                            finaljLabel.setText("Game over, has perdido");
+                            finaljLabel.setVisible(true);
+                            enviarjButton.setEnabled(false);
+                            palabrasjTextField.setEnabled(false);
+                            JOptionPane.showMessageDialog(this, "La palabra correcta era: " + palabraAleatoria, "Fin de partida", JOptionPane.INFORMATION_MESSAGE);
+                            
+                        }
                     }
+                } else {
+                    errorjLabel.setText("Texto invalido");
                 }
-            } else {
-                errorjLabel.setText("Texto invalido");
+            } catch (SQLException ex) {
+                Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -321,10 +326,18 @@ public class MainGUI extends javax.swing.JFrame {
 
     }
 
+    private void erroresIO(IOException ex){
+        
+        
+    }
+    
+    
+    
     private void nuevaPartida() {
         idioma();
         gm = selectMotor();
         tipoMotor();
+        ocultarFilas();
         letrasV.clear();
         letrasA.clear();
         letrasR.clear();
@@ -335,20 +348,26 @@ public class MainGUI extends javax.swing.JFrame {
 
             // System.out.println(idioma);
             if (esjRadioButtonMenuItem.isSelected()) {
-                // System.out.println("Español seleccionado");
-                intento = 1;
-                enviarjButton.setEnabled(true);
                 try {
-                    gm.cargarTextos();
-                } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos " + ex);
-                }
-                palabraAleatoria = gm.palabraAleatoria();
-                //System.out.println(palabraAleatoria);
-
-                //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
-                if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
-                    ocultarFilas();
+                    // System.out.println("Español seleccionado");
+                    intento = 1;
+                    enviarjButton.setEnabled(true);
+                    try {
+                        gm.cargarTextos();
+                    } catch (IOException ex) {
+                        
+                        System.out.println("no se pudo cargar los datos " + ex);
+                    }
+                    palabraAleatoria = gm.palabraAleatoria();
+                    //System.out.println(palabraAleatoria);
+                    
+                    //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
+                    if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
+                        ocultarFilas();
+                    }
+                } catch (SQLException ex) {
+                    
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (gljRadioButtonMenuItem.isSelected()) {
                 // System.out.println("Gallego seleccionado");
@@ -358,9 +377,14 @@ public class MainGUI extends javax.swing.JFrame {
                     gm.cargarTextos();
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos " + ex);
+                    erroresIO(ex);
                 }
-                palabraAleatoria = gm.palabraAleatoria();
-              //  System.out.println(palabraAleatoria);
+                try {
+                    palabraAleatoria = gm.palabraAleatoria();
+                    //  System.out.println(palabraAleatoria);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
@@ -381,8 +405,12 @@ public class MainGUI extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
-                palabraAleatoria = gm.palabraAleatoria();
-              //  System.out.println(palabraAleatoria);
+                try {
+                    palabraAleatoria = gm.palabraAleatoria();
+                    //  System.out.println(palabraAleatoria);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
@@ -397,8 +425,12 @@ public class MainGUI extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
-                palabraAleatoria = gm.palabraAleatoria();
-             //   System.out.println(palabraAleatoria);
+                try {
+                    palabraAleatoria = gm.palabraAleatoria();
+                    //   System.out.println(palabraAleatoria);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
@@ -417,8 +449,12 @@ public class MainGUI extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos" + ex);
                 }
-                palabraAleatoria = gm.palabraAleatoria();
-              //  System.out.println(palabraAleatoria);
+                try {
+                    palabraAleatoria = gm.palabraAleatoria();
+                    //  System.out.println(palabraAleatoria);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("a")) {
@@ -433,8 +469,12 @@ public class MainGUI extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     System.out.println("no se pudo cargar los datos "+ ex);
                 }
-                palabraAleatoria = gm.palabraAleatoria();
-                //System.out.println(palabraAleatoria);
+                try {
+                    palabraAleatoria = gm.palabraAleatoria();
+                    //System.out.println(palabraAleatoria);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
                 if (!jLabel1_1.getText().equalsIgnoreCase("A")) {
