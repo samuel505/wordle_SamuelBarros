@@ -1123,7 +1123,7 @@ public class MainGUI extends javax.swing.JFrame {
     
     
     private void errores(Exception ex){
-        JOptionPane.showMessageDialog(this,"ERROR", "Uno un error inesperado: "+ex.getMessage(), JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"ERROR", "Hubo un error inesperado: "+ex.getMessage(), JOptionPane.ERROR_MESSAGE);
         
     }
     
