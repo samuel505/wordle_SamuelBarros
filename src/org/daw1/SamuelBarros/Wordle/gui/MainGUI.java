@@ -348,7 +348,7 @@ public class MainGUI extends javax.swing.JFrame {
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos " + ex);
+                    errores(ex);
                 } catch (SQLException ex) {
                     errores(ex);
                 }
@@ -368,7 +368,7 @@ public class MainGUI extends javax.swing.JFrame {
                 try {
                     gm.cargarTextos();
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos " + ex);
+                    errores(ex);
                 } catch (SQLException ex) {
                     errores(ex);
                 }
@@ -377,7 +377,7 @@ public class MainGUI extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     errores(ex);
                 }
-                System.out.println(palabraAleatoria);
+                
 
                 //&&!jLabel1_2.getText().equalsIgnoreCase("a")&&!jLabel1_3.getText().equalsIgnoreCase("a")&&!jLabel1_4.getText().equalsIgnoreCase("a")&&!jLabel1_5.getText().equalsIgnoreCase("a")
             }
@@ -395,7 +395,7 @@ public class MainGUI extends javax.swing.JFrame {
                         errores(ex);
                     }
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos" + ex);
+                    errores(ex);
                 }
                 try {
                     palabraAleatoria = gm.palabraAleatoria();
@@ -416,7 +416,7 @@ public class MainGUI extends javax.swing.JFrame {
                         errores(ex);
                     }
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos" + ex);
+                   errores(ex);
                 }
                 try {
                     palabraAleatoria = gm.palabraAleatoria();
@@ -440,7 +440,7 @@ public class MainGUI extends javax.swing.JFrame {
                         errores(ex);
                     }
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos" + ex);
+                    errores(ex);
                 }
                 try {
                     palabraAleatoria = gm.palabraAleatoria();
@@ -461,7 +461,7 @@ public class MainGUI extends javax.swing.JFrame {
                         errores(ex);
                     }
                 } catch (IOException ex) {
-                    System.out.println("no se pudo cargar los datos " + ex);
+                    errores(ex);
                 }
                 try {
                     palabraAleatoria = gm.palabraAleatoria();

@@ -174,7 +174,7 @@ public class GestorMotorArchivo implements iMotor {
 
         Object array[] = palabras.toArray();
         String palabra = (String) array[random];
-        // System.out.println(palabra);
+        
         return palabra;
     }
 
